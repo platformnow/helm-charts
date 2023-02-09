@@ -1,0 +1,7 @@
+# IDE's
+*.tgz
+/.idea/*
+.vscode
+.DS_Store
+/charts/*/charts
+/charts/*/Chart.lock
