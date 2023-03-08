@@ -1,62 +1,79 @@
+{{/*Helpers*/}}
+{{/* vim: set filetype=mustache: */}}
 {{/*
-Expand the name of the chart.
+Return the proper image name
 */}}
-{{- define "portalnow-template.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- define "image" -}}
+{{- include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) -}}
+{{- end -}}
 
 {{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
+Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "portalnow-template.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{- define "imagePullSecrets" -}}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.image) "global" .Values.global) -}}
+{{- end -}}
 
 {{/*
-Create chart name and version as used by the chart label.
+Return port
 */}}
-{{- define "portalnow-template.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- define "port" -}}
+{{- if .Values.global.servicePort }}
+    {{- .Values.global.servicePort -}}
+{{- else -}}
+    {{- .Values.service.port -}}
+{{- end -}}
+{{- end -}}
 
 {{/*
-Common labels
+Gets the host to be used for this application.
+If not using ClusterIP, or if a host or LoadBalancerIP is not defined, the value will be empty.
 */}}
-{{- define "portalnow-template.labels" -}}
-helm.sh/chart: {{ include "portalnow-template.chart" . }}
-{{ include "portalnow-template.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
+{{- define "baseUrl" -}}
+{{- $app := include "common.names.name" . -}}
+{{- $host := include "serviceIP" . -}}
+
+{{- $port := "" -}}
+{{- $servicePortString := printf "%v" .Values.service.port -}}
+{{- if and (not (eq $servicePortString "80")) (not (eq $servicePortString "443")) -}}
+  {{- $port = printf ":%s" $servicePortString -}}
+{{- end -}}
+
+{{- $defaultUrl := "" -}}
+{{- if $host -}}
+  {{- $defaultUrl = printf "%s-%s.%s.nip.io" $app .Release.Namespace $host -}}
+{{- end -}}
+
+{{- $url := "" -}}
+{{- if .Values.baseUrl -}}
+  {{- $url = printf "%s-%s.%s" $app ( regexReplaceAll ".*-" .Release.Namespace "" ) .Values.baseUrl -}}
+{{- end -}}
+
+{{- default $defaultUrl $url -}}
+{{- end -}}
 
 {{/*
-Selector labels
+Get the user defined LoadBalancerIP for this release.
+Note, returns 127.0.0.1 if using ClusterIP.
 */}}
-{{- define "portalnow-template.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "portalnow-template.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
+{{- define "serviceIP" -}}
+{{- if eq .Values.service.type "ClusterIP" -}}
+127.0.0.1
+{{- else -}}
+{{- .Values.service.loadBalancerIP | default "" -}}
+{{- end -}}
+{{- end -}}
 
 {{/*
-Create the name of the service account to use
+Get the configmap name
 */}}
-{{- define "portalnow-template.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "portalnow-template.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
+{{- define "configMapName" -}}
+{{- if .Values.existingConfigmap -}}
+  {{- printf "%s" (tpl .Values.existingConfigmap $) -}}
+{{- else -}}
+  {{- printf "%s-configuration" (include "common.names.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+
+

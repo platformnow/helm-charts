@@ -1,0 +1,39 @@
+{{- if .Values.metrics.extraServiceMonitors }}
+{{- range $k, $v := .Values.metrics.extraServiceMonitors }}
+{{- if $v.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $k }}-metrics
+  {{- if $v.namespace }}
+  namespace: {{ $v.namespace | quote }}
+  {{- else }}
+  namespace: {{ $.Release.Namespace | quote }}
+  {{- end }}
+  labels: {{- include "common.labels.standard" $ | nindent 4 }}
+    {{- if $.Values.commonLabels }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.commonLabels "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if $v.labels }}
+    {{- include "common.tplvalues.render" (dict "value" $v.labels "context" $) | nindent 4 }}
+    {{- end }}
+    app.kubernetes.io/component: {{ include "common.names.name" $ }}
+  {{- if $.Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+    - interval: {{ $v.interval }}
+      path: {{ $v.path }}
+      port: {{ $v.port }}
+      scrapeTimeout: {{ $v.scrapeTimeout }}
+      honorLabels: {{ $v.honorLabels }}
+  namespaceSelector:
+    any: false
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $k }}
+{{- end }}
+---
+{{- end }}
+{{- end }}
