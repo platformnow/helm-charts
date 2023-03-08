@@ -4,9 +4,9 @@ A [Helm Library Chart](https://helm.sh/docs/topics/library_charts/#helm) for gro
 
 ```yaml
 dependencies:
-    - name: common
-      version: 0.x.x
-      repository: https://platformnow.github.io/helm-charts
+- name: common
+  version: 0.x.x
+  repository: https://platformnow.github.io/helm-charts
 ```
 
 ```bash
@@ -222,11 +222,11 @@ data:
 ---
 ...
 env:
-    - name: PASSWORD
-      valueFrom:
-          secretKeyRef:
-              name: {{ include "common.secrets.name" (dict "existingSecret" .Values.existingSecret "context" $) }}
-              key: {{ include "common.secrets.key" (dict "existingSecret" .Values.existingSecret "key" "password") }}
+- name: PASSWORD
+  valueFrom:
+      secretKeyRef:
+          name: {{ include "common.secrets.name" (dict "existingSecret" .Values.existingSecret "context" $) }}
+          key: {{ include "common.secrets.key" (dict "existingSecret" .Values.existingSecret "key" "password") }}
 ...
 
 # values.yaml
