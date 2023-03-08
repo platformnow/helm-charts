@@ -1,5 +1,4 @@
-PortalNOW Template 
-===========
+# PortalNOW Template
 Omega Helm Chart for Kubernetes is a re-usable chart for your apps.
 
 ## Introduction
