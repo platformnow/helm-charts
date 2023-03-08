@@ -1,0 +1,17 @@
+apiVersion: v2
+name: common
+description: A Library Helm Chart for grouping common logic between charts. This chart is not deployable by itself.
+icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+type: library
+annotations:
+  category: Infrastructure
+version: 0.1.0
+keywords:
+  - common
+  - helper
+  - template
+  - function
+  - infrastructure
+maintainers:
+  - email: officailplatformguy@gmail.com
+    name: Platform Guy
