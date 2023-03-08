@@ -5,4 +5,6 @@ chart-dirs:
   - charts
 #chart-repos:
 #  - platformnow-community=https://platformnow-community.github.io/helm-charts
-validate-maintainers: false
+helm-extra-args: --timeout 600s
+additional-commands:
+# - helm unittest --helm3 --strict --file unittests/*.yaml --file 'unittests/**/*.yaml' {{ .Path }}
