@@ -10,7 +10,7 @@ dependencies:
 ```
 
 ```bash
-$ helm dependency update
+helm dependency update
 ```
 
 ```yaml
