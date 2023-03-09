@@ -17,7 +17,7 @@ spec:
             matchLabels:
               app: {{ .Values.cartService.name }}
       ports:
-        - port: 6379
+        - port: {{ .Values.service.port }}
           protocol: TCP
   egress:
     - {}

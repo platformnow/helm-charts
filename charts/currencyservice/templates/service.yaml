@@ -4,10 +4,10 @@ metadata:
   name: {{ .Values.currencyService.name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.service.type }}
   selector:
     app: {{ .Values.currencyService.name }}
   ports:
     - name: grpc
-      port: 7000
-      targetPort: 7000
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}

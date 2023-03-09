@@ -39,12 +39,12 @@ spec:
             readOnlyRootFilesystem: true
           image: {{ .Values.images.repository }}/{{ .Values.frontend.name }}:{{ .Values.images.tag | default .Chart.AppVersion }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.containerPort }}
           readinessProbe:
             initialDelaySeconds: 10
             httpGet:
               path: "/_healthz"
-              port: 8080
+              port: {{ .Values.containerPort }}
               httpHeaders:
                 - name: "Cookie"
                   value: "shop_session-id=x-readiness-probe"
@@ -52,13 +52,13 @@ spec:
             initialDelaySeconds: 10
             httpGet:
               path: "/_healthz"
-              port: 8080
+              port: {{ .Values.containerPort }}
               httpHeaders:
                 - name: "Cookie"
                   value: "shop_session-id=x-liveness-probe"
           env:
             - name: PORT
-              value: "8080"
+              value: {{ .Values.containerPort | quote }}
             - name: PRODUCT_CATALOG_SERVICE_ADDR
               value: "{{ .Values.productCatalogService.name }}:3550"
             - name: CURRENCY_SERVICE_ADDR
@@ -91,10 +91,4 @@ spec:
               value: {{ .Values.frontend.cymbalBranding | quote }}
             - name: ENABLE_SINGLE_SHARED_SESSION
               value: {{ .Values.frontend.singleSharedSession | quote }}
-          resources:
-            requests:
-              cpu: 100m
-              memory: 64Mi
-            limits:
-              cpu: 200m
-              memory: 128Mi
+          resources: {{ toYaml .Values.resources | nindent 10 }}

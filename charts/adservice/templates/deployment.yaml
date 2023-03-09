@@ -17,7 +17,7 @@ spec:
       {{- else }}
       serviceAccountName: default
       {{- end }}
-      terminationGracePeriodSeconds: 5
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
@@ -42,23 +42,17 @@ spec:
           image: {{ .Values.images.repository }}/{{ .Values.adService.name }}:{{ .Values.images.tag | default .Chart.AppVersion }}
         {{- end }}
           ports:
-            - containerPort: 9555
+            - containerPort: {{ .Values.service.port }}
           env:
             - name: PORT
-              value: "9555"
-          resources:
-            requests:
-              cpu: 200m
-              memory: 180Mi
-            limits:
-              cpu: 300m
-              memory: 300Mi
+              value: {{ .Values.service.port }}
+          resources: {{- toYaml .Values.resources | nindent 10 }}
           readinessProbe:
             initialDelaySeconds: 20
             periodSeconds: 15
           {{- if .Values.nativeGrpcHealthCheck }}
             grpc:
-              port: 9555
+              port: {{ .Values.service.port }}
           {{- else }}
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:9555"]
@@ -68,7 +62,7 @@ spec:
             periodSeconds: 15
           {{- if .Values.nativeGrpcHealthCheck }}
             grpc:
-              port: 9555
+              port: {{ .Values.service.port }}
           {{- else }}
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:9555"]

@@ -23,7 +23,7 @@ spec:
             matchLabels:
               app: {{ .Values.recommendationService.name }}
       ports:
-        - port: 3550
+        - port: {{ .Values.service.port }}
           protocol: TCP
   egress:
     - {}

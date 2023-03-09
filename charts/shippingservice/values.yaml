@@ -16,7 +16,22 @@ serviceAccounts:
   annotationsOnlyForCartservice: false
 
 # Specifies if the livenessProbe and readinessProbe are using the native gRPC support with Kubernetes 1.24.
-nativeGrpcHealthCheck: false
+nativeGrpcHealthCheck: true
+
+service:
+  ## Specify what kind of Service you want.
+  type: ClusterIP
+  ## Application service HTTP port
+  port: 50051
+
+## Container resource requests and limits
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
 
 networkPolicies:
   # Specifies if the NetworkPolicies are created or not. If true, one fine granular NetworkPolicy per app is created.

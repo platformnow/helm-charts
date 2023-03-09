@@ -26,5 +26,5 @@ spec:
             methods:
               - POST
             ports:
-              - "7000"
+              - {{ .Values.service.port | quote }}
 {{- end }}

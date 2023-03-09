@@ -23,7 +23,7 @@ spec:
       {{- else }}
       serviceAccountName: default
       {{- end }}
-      terminationGracePeriodSeconds: 5
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
@@ -48,7 +48,7 @@ spec:
           image: {{ .Values.images.repository }}/{{ .Values.cartService.name }}:{{ .Values.images.tag | default .Chart.AppVersion }}
         {{- end }}
           ports:
-            - containerPort: 7070
+            - containerPort: {{ .Values.service.port }}
           env:
         {{- if eq .Values.cartDatabase.type "spanner" }}
             - name: SPANNER_CONNECTION_STRING
@@ -56,18 +56,12 @@ spec:
             - name: REDIS_ADDR
         {{- end }}
               value: {{ .Values.cartDatabase.connectionString | quote }}
-          resources:
-            requests:
-              cpu: 200m
-              memory: 64Mi
-            limits:
-              cpu: 300m
-              memory: 128Mi
+          resources: {{ toYaml .Values.resources | nindent 10 }}
           readinessProbe:
             initialDelaySeconds: 15
           {{- if .Values.nativeGrpcHealthCheck }}
             grpc:
-              port: 7070
+              port: {{ .Values.service.port }}
           {{- else }}
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:7070", "-rpc-timeout=5s"]
@@ -77,7 +71,7 @@ spec:
             periodSeconds: 10
           {{- if .Values.nativeGrpcHealthCheck }}
             grpc:
-              port: 7070
+              port: {{ .Values.service.port }}
           {{- else }}
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:7070", "-rpc-timeout=5s"]

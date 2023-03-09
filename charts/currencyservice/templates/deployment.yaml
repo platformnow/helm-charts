@@ -17,7 +17,7 @@ spec:
       {{- else }}
       serviceAccountName: default
       {{- end }}
-      terminationGracePeriodSeconds: 5
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
@@ -43,10 +43,10 @@ spec:
         {{- end }}
           ports:
             - name: grpc
-              containerPort: 7000
+              containerPort: {{ .Values.service.port }}
           env:
             - name: PORT
-              value: "7000"
+              value: {{ .Values.service.port | quote }}
         {{- if .Values.opentelemetryCollector.create }}
             - name: COLLECTOR_SERVICE_ADDR
               value: "{{ .Values.opentelemetryCollector.name }}:4317"
@@ -62,7 +62,7 @@ spec:
           readinessProbe:
           {{- if .Values.nativeGrpcHealthCheck }}
             grpc:
-              port: 7000
+              port: {{ .Values.service.port }}
           {{- else }}
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:7000"]
@@ -70,7 +70,7 @@ spec:
           livenessProbe:
           {{- if .Values.nativeGrpcHealthCheck }}
             grpc:
-              port: 7000
+              port: {{ .Values.service.port }}
           {{- else }}
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:7000"]

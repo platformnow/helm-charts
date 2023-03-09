@@ -20,7 +20,7 @@ spec:
             matchLabels:
               app: {{ .Values.checkoutService.name }}
       ports:
-        - port: 50051
+        - port: {{ .Values.service.port | quote }}
           protocol: TCP
   egress:
     - {}

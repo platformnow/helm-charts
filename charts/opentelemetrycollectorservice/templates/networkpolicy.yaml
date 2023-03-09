@@ -47,7 +47,7 @@ spec:
             matchLabels:
               app: {{ .Values.shippingService.name }}
       ports:
-        - port: 4317
+        - port: {{ .Values.service.port }}
           protocol: TCP
   egress:
     - {}
