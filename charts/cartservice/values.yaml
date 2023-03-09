@@ -29,11 +29,11 @@ service:
 ## Container resource requests and limits
 resources:
   requests:
-    cpu: 300m
-    memory: 200Mi
+    cpu: 200m
+    memory: 64Mi
   limits:
-    cpu: 700m
-    memory: 500Mi
+    cpu: 300m
+    memory: 128Mi
 
 networkPolicies:
   # Specifies if the NetworkPolicies are created or not. If true, one fine granular NetworkPolicy per app is created.
