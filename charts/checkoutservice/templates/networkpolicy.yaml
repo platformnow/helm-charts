@@ -17,7 +17,7 @@ spec:
             matchLabels:
               app: {{ .Values.frontend.name }}
       ports:
-        - port: 5050
+        - port: {{ .Values.service.port }}
           protocol: TCP
   egress:
     - {}
