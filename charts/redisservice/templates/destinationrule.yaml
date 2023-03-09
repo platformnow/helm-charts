@@ -1,0 +1,15 @@
+{{- if .Values.cartDatabase.externalRedisTlsOrigination.enable }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: {{ .Values.cartDatabase.externalRedisTlsOrigination.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  exportTo:
+    - '.'
+  host: {{ .Values.cartDatabase.externalRedisTlsOrigination.name }}.{{ .Release.Namespace }}
+  trafficPolicy:
+    tls:
+      mode: SIMPLE
+      caCertificates: /etc/certs/{{ .Values.cartDatabase.externalRedisTlsOrigination.name }}.pem
+{{- end }}

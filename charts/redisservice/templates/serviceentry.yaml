@@ -1,0 +1,20 @@
+{{- if .Values.cartDatabase.externalRedisTlsOrigination.enable }}
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: {{ .Values.cartDatabase.externalRedisTlsOrigination.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  hosts:
+    - {{ .Values.cartDatabase.externalRedisTlsOrigination.name }}.{{ .Release.Namespace }}
+  addresses:
+    - {{ .Values.cartDatabase.externalRedisTlsOrigination.endpointAddress }}/32
+  endpoints:
+    - address: {{ .Values.cartDatabase.externalRedisTlsOrigination.endpointAddress }}
+  location: MESH_EXTERNAL
+  resolution: STATIC
+  ports:
+    - number: {{ .Values.cartDatabase.externalRedisTlsOrigination.endpointPort }}
+      name: tcp-redis
+      protocol: TCP
+{{- end }}
