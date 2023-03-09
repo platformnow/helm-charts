@@ -1,0 +1,34 @@
+{{- if .Values.authorizationPolicies.create }}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ .Values.opentelemetryCollector.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.opentelemetryCollector.name }}
+  rules:
+    - from:
+        - source:
+            principals:
+        {{- if .Values.serviceAccounts.create }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.adService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.cartService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.checkoutService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.currencyService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.emailService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.frontend.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.loadGenerator.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.paymentService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.productCatalogService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.recommendationService.name }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.shippingService.name }}
+        {{- else }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/default
+        {{- end }}
+      to:
+        - operation:
+            ports:
+              - "4317"
+{{- end }}
