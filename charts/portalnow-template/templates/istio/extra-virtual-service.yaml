@@ -1,0 +1,25 @@
+{{- if and (not .Values.ingress.enabled ) (.Values.istio.enabled) (.Values.istio.extraVirtualServices) }}
+{{- range $k, $v := .Values.istio.extraVirtualServices }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ $k }}
+spec:
+  hosts:
+  {{- include "common.tplvalues.render" (dict "value" $v.hosts "context" $) | nindent 4 }}
+  gateways:
+  {{- include "common.tplvalues.render" (dict "value" $v.gateways "context" $) | nindent 4 }}
+  {{- if $v.http }}
+  http:
+  {{- include "common.tplvalues.render" (dict "value" $v.http "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.tls }}
+  tls:
+  {{- include "common.tplvalues.render" (dict "value" $v.tls "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.tcp }}
+  tcp:
+  {{- include "common.tplvalues.render" (dict "value" $v.tcp "context" $) | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
