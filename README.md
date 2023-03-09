@@ -1,6 +1,6 @@
 # PlatformNOW Helm Charts
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=master) [![Releases downloads](https://img.shields.io/github/downloads/platform-now/helm-charts/total.svg)](https://github.com/platform-now/helm-charts/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=master) [![Releases downloads](https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg)](https://github.com/platformnow/helm-charts/releases)
 
 ## Usage
 
@@ -30,4 +30,4 @@ We'd love to have you contribute! Please refer to our [contribution guidelines](
 
 ## Helm charts build status
 
-![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)
+![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=master)
