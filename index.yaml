@@ -4,6 +4,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:23.021325489Z"
+    description: A Helm chart for Kubernetes for Online Boutique Ad Service
+    digest: 609cfa3537ae1c83756fc05bad91f26a855f12157e00ba2645c61f255d246b2d
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: adservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/adservice-0.2.0/adservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T10:07:47.635629227Z"
     description: A Helm chart for Kubernetes for Online Boutique Ad Service
@@ -26,6 +47,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:23.168593602Z"
+    description: A Helm chart for Kubernetes for Online Boutique Cart Service
+    digest: e744a280778a8c7f94f959db98ab6a9e600794167345ec815b8e22ef83af03a0
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: cartservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/cartservice-0.2.0/cartservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T10:07:47.775276223Z"
     description: A Helm chart for Kubernetes for Online Boutique Cart Service
@@ -45,6 +87,27 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/cartservice-0.1.0/cartservice-0.1.0.tgz
     version: 0.1.0
   checkoutservice:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:23.31658312Z"
+    description: A Helm chart for Kubernetes for Online Boutique Checkout Service
+    digest: 50d7b1a661e84c79f8e060fab1ef9df2f7a556715f4362a94b481dd55c72c148
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: checkoutservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/checkoutservice-0.2.0/checkoutservice-0.2.0.tgz
+    version: 0.2.0
   - annotations:
       category: Application
     apiVersion: v2
@@ -93,6 +156,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:23.511178828Z"
+    description: A Helm chart for Kubernetes for Online Boutique Currency Service
+    digest: be3dd41188921a362eb8c2174da12adb7b976eb3e37f380dce8319a4fccc1aa1
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: currencyservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/currencyservice-0.2.0/currencyservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T11:36:57.196784295Z"
     description: A Helm chart for Kubernetes for Online Boutique Currency Service
@@ -112,6 +196,27 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/currencyservice-0.1.0/currencyservice-0.1.0.tgz
     version: 0.1.0
   emailservice:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:23.675403546Z"
+    description: A Helm chart for Kubernetes for Online Boutique Email Service
+    digest: c926c487e8bda6be592e75626c7dea9ed5d5fc11648bdea6f49eacfdc66e57a7
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: emailservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/emailservice-0.2.0/emailservice-0.2.0.tgz
+    version: 0.2.0
   - annotations:
       category: Application
     apiVersion: v2
@@ -137,6 +242,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:23.802181933Z"
+    description: A Helm chart for Kubernetes for Online Boutique Frontend Service
+    digest: 0d6b01d4b202e67c3227c3b92ee11bb3ca6bd2f760ea916c191c4517e4e7eb5a
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: frontendservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/frontendservice-0.2.0/frontendservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T11:36:57.513740778Z"
     description: A Helm chart for Kubernetes for Online Boutique Frontend Service
@@ -159,6 +285,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:23.947750736Z"
+    description: A Helm chart for Kubernetes for Online Boutique Load Generator Service
+    digest: e80335b716e6afe47b29e664f8e9e8317f70ae1a9f42f061bc5ca66e3c8b4a94
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: loadgeneratorservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/loadgeneratorservice-0.2.0/loadgeneratorservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T11:36:57.659715925Z"
     description: A Helm chart for Kubernetes for Online Boutique Load Generator Service
@@ -178,6 +325,27 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/loadgeneratorservice-0.1.0/loadgeneratorservice-0.1.0.tgz
     version: 0.1.0
   paymentservice:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:24.106795422Z"
+    description: A Helm chart for Kubernetes for Online Boutique Payment Service
+    digest: 6ada72f1f4b3201f90d7be91d9398e70069ba02657f22d8451fc2f71e310c103
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: paymentservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/paymentservice-0.2.0/paymentservice-0.2.0.tgz
+    version: 0.2.0
   - annotations:
       category: Application
     apiVersion: v2
@@ -226,6 +394,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:24.325493579Z"
+    description: A Helm chart for Kubernetes for Online Boutique Product Catalog Service
+    digest: 8ce6f189a192078f2bed01e402d560996353b55a9de3b0a779063a2fa02af50b
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: productcatalogservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/productcatalogservice-0.2.0/productcatalogservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T11:36:57.963563252Z"
     description: A Helm chart for Kubernetes for Online Boutique Product Catalog Service
@@ -245,6 +434,27 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/productcatalogservice-0.1.0/productcatalogservice-0.1.0.tgz
     version: 0.1.0
   recommendationservice:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:24.489955299Z"
+    description: A Helm chart for Kubernetes for Online Boutique Recommendation Service
+    digest: 0c16c7ebfcefddb82de8d714ce8ed04926ce4f492c365f1da6d432fb48a2e248
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: recommendationservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/recommendationservice-0.2.0/recommendationservice-0.2.0.tgz
+    version: 0.2.0
   - annotations:
       category: Application
     apiVersion: v2
@@ -270,6 +480,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:24.625967075Z"
+    description: A Helm chart for Kubernetes for Online Boutique Redis Service
+    digest: 74d39412e4d9b5900dd1438ea086b21001876bf545a2c50c5258ea85472915d2
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: redisservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/redisservice-0.2.0/redisservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T11:36:58.222323499Z"
     description: A Helm chart for Kubernetes for Online Boutique Redis Service
@@ -292,6 +523,27 @@ entries:
   - annotations:
       category: Application
     apiVersion: v2
+    appVersion: v0.5.2
+    created: "2023-03-09T16:20:24.758288304Z"
+    description: A Helm chart for Kubernetes for Online Boutique Shipping Service
+    digest: 2cb28089813172c31cf54b33798fb775851ce1535002206314544e92065d2de9
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - online-boutique
+    - microservices-demo
+    - gcp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: shippingservice
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.2.0/shippingservice-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      category: Application
+    apiVersion: v2
     appVersion: v0.5.1
     created: "2023-03-09T11:36:58.368451249Z"
     description: A Helm chart for Kubernetes for Online Boutique Shipping Service
@@ -310,4 +562,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-09T11:36:58.36851335Z"
+generated: "2023-03-09T16:20:24.758324904Z"
