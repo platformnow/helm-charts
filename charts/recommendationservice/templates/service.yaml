@@ -1,0 +1,12 @@
+kind: Service
+metadata:
+  name: {{ .Values.recommendationService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.recommendationService.name }}
+  ports:
+    - name: grpc
+      port: 8080
+      targetPort: 8080
