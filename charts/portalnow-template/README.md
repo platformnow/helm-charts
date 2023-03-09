@@ -149,7 +149,7 @@ The following table lists the configurable parameters of the chart and their def
 | `customReadinessProbe`                  | Custom readinessProbe that overrides the default one                                                                     | `{}`              |
 | `sidecars`                              | Add additional sidecar containers to the Pod                                                                             | `[]`              |
 | `resources.limits`                      | The resources limits for the container                                                                                   | `{}`              |
-| `resources.requests`                    | The requested resources for the container                                                                                | `{}`              |                                         
+| `resources.requests`                    | The requested resources for the container                                                                                | `{}`              |
 
 ### Auto Scalers Parameters
 
@@ -207,20 +207,19 @@ The following table lists the configurable parameters of the chart and their def
 | `persistence.size`                            | The Size of the Persistent Volume        | `"8Gi"`             |
 | `persistence.annotations`                     | Additional Annotations to add the the PV | `{}`                |
 
-
 ### Metrics parameters
 
-| Name                                   | Description                                          | Default                    |
-|----------------------------------------|------------------------------------------------------|----------------------------|
-| `metrics.serviceMonitor.enabled`       | Enable a Prometheus Service Monitor                  | `false`                    |
-| `metrics.serviceMonitor.namespace`     | Namespace for the Service Monitor                    | `""`                       |
-| `metrics.serviceMonitor.interval`      | Interval for the Service Monitor                     | `"10s"`                    |
+| Name                                  | Description                                          | Default                    |
+|---------------------------------------|------------------------------------------------------|----------------------------|
+| `metrics.serviceMonitor.enabled`      | Enable a Prometheus Service Monitor                  | `false`                    |
+| `metrics.serviceMonitor.namespace`    | Namespace for the Service Monitor                    | `""`                       |
+| `metrics.serviceMonitor.interval`     | Interval for the Service Monitor                     | `"10s"`                    |
 | `metrics.serviceMonitor.scrapeTimeout` | Scrape Timeout for the Service Monitor               | `"10s"`                    |
-| `metrics.serviceMonitor.labels`        | Prometheus Operator Labels                           | `"prometheus: monitoring"` |
-| `metrics.serviceMonitor.path`          | Path where Prometheus Metrics are exposed on the Pod | `"/"`                      |
-| `metrics.serviceMonitor.port`          | Port on the Pod where Prometheus Metrics are exposed | `"http"`                   |
-| `metrics.serviceMonitor.honorLabels`   | Whether to Honour Labels                             | `true`                     |
-| `metrics.extraServiceMonitors `        | A Map of extra Service Monitors to Expose            | `{}`                       |
+| `metrics.serviceMonitor.labels`       | Prometheus Operator Labels                           | `"prometheus: monitoring"` |
+| `metrics.serviceMonitor.path`         | Path where Prometheus Metrics are exposed on the Pod | `"/"`                      |
+| `metrics.serviceMonitor.port`         | Port on the Pod where Prometheus Metrics are exposed | `"http"`                   |
+| `metrics.serviceMonitor.honorLabels`  | Whether to Honour Labels                             | `true`                     |
+| `metrics.extraServiceMonitors`        | A Map of extra Service Monitors to Expose            | `{}`                       |
 
 ### Istio parameters
 
