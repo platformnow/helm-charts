@@ -1,0 +1,24 @@
+{{- if .Values.authorizationPolicies.create }}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ .Values.cartDatabase.inClusterRedis.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.cartDatabase.inClusterRedis.name }}
+  rules:
+    - from:
+        - source:
+            principals:
+        {{- if .Values.serviceAccounts.create }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.cartService.name }}
+        {{- else }}
+              - cluster.local/ns/{{ .Release.Namespace }}/sa/default
+        {{- end }}
+      to:
+        - operation:
+            ports:
+              - "6379"
+{{- end }}

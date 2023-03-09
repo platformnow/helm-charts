@@ -1,0 +1,24 @@
+{{- if .Values.networkPolicies.create }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Values.cartDatabase.inClusterRedis.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.cartDatabase.inClusterRedis.name }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: {{ .Values.cartService.name }}
+      ports:
+        - port: 6379
+          protocol: TCP
+  egress:
+    - {}
+{{- end }}

@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.frontend.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.frontend.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.frontend.name }}
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+    spec:
+      {{- if .Values.serviceAccounts.create }}
+      serviceAccountName: {{ .Values.frontend.name }}
+      {{- else }}
+      serviceAccountName: default
+      {{- end }}
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+        {{- if .Values.seccompProfile.enable }}
+        seccompProfile:
+          type: {{ .Values.seccompProfile.type }}
+        {{- end }}
+      containers:
+        - name: server
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - all
+            privileged: false
+            readOnlyRootFilesystem: true
+          image: {{ .Values.images.repository }}/{{ .Values.frontend.name }}:{{ .Values.images.tag | default .Chart.AppVersion }}
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: "/_healthz"
+              port: 8080
+              httpHeaders:
+                - name: "Cookie"
+                  value: "shop_session-id=x-readiness-probe"
+          livenessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: "/_healthz"
+              port: 8080
+              httpHeaders:
+                - name: "Cookie"
+                  value: "shop_session-id=x-liveness-probe"
+          env:
+            - name: PORT
+              value: "8080"
+            - name: PRODUCT_CATALOG_SERVICE_ADDR
+              value: "{{ .Values.productCatalogService.name }}:3550"
+            - name: CURRENCY_SERVICE_ADDR
+              value: "{{ .Values.currencyService.name }}:7000"
+            - name: CART_SERVICE_ADDR
+              value: "{{ .Values.cartService.name }}:7070"
+            - name: RECOMMENDATION_SERVICE_ADDR
+              value: "{{ .Values.recommendationService.name }}:8080"
+            - name: SHIPPING_SERVICE_ADDR
+              value: "{{ .Values.shippingService.name }}:50051"
+            - name: CHECKOUT_SERVICE_ADDR
+              value: "{{ .Values.checkoutService.name }}:5050"
+            - name: AD_SERVICE_ADDR
+              value: "{{ .Values.adService.name }}:9555"
+            - name: ENV_PLATFORM
+              value: {{ .Values.frontend.platform | quote }}
+          {{- if .Values.opentelemetryCollector.create }}
+            - name: COLLECTOR_SERVICE_ADDR
+              value: "{{ .Values.opentelemetryCollector.name }}:4317"
+          {{- end }}
+          {{- if .Values.googleCloudOperations.tracing }}
+            - name: ENABLE_TRACING
+              value: "1"
+          {{- end }}
+          {{- if .Values.googleCloudOperations.profiler }}
+            - name: ENABLE_PROFILER
+              value: "1"
+          {{- end }}
+            - name: CYMBAL_BRANDING
+              value: {{ .Values.frontend.cymbalBranding | quote }}
+            - name: ENABLE_SINGLE_SHARED_SESSION
+              value: {{ .Values.frontend.singleSharedSession | quote }}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi

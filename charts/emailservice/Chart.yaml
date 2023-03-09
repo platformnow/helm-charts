@@ -1,0 +1,17 @@
+apiVersion: v2
+name: emailservice
+description: A Helm chart for Kubernetes for Online Boutique Email Service
+type: application
+version: 0.1.0
+appVersion: "v0.5.1"
+maintainers:
+  - email: officialplatformguy@gmail.com
+    name: ThePlatformGuy
+annotations:
+  category: Application
+keywords:
+  - application
+  - online-boutique
+  - microservices-demo
+  - gcp
+icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
