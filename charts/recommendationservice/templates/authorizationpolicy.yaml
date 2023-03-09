@@ -24,5 +24,5 @@ spec:
             methods:
               - POST
             ports:
-              - "8080"
+              - {{ .Values.service.port | quote }}
 {{- end }}

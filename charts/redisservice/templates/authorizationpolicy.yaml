@@ -20,5 +20,5 @@ spec:
       to:
         - operation:
             ports:
-              - "6379"
+              - {{ .Values.service.port | quote }}
 {{- end }}

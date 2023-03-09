@@ -41,25 +41,19 @@ spec:
           image: {{ .Values.images.repository }}/redis:alpine
         {{- end }}
           ports:
-            - containerPort: 6379
+            - containerPort: {{ .Values.service.port }}
           readinessProbe:
             periodSeconds: 5
             tcpSocket:
-              port: 6379
+              port: {{ .Values.service.port }}
           livenessProbe:
             periodSeconds: 5
             tcpSocket:
-              port: 6379
+              port: {{ .Values.service.port }}
           volumeMounts:
             - mountPath: /data
               name: redis-data
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: 125m
-            requests:
-              cpu: 70m
-              memory: 200Mi
+          resources: {{ toYaml .Values.resources | nindent 10 }}
       volumes:
         - name: redis-data
           emptyDir: {}

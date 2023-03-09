@@ -6,9 +6,9 @@ metadata:
 spec:
   ports:
     - name: grpc-otlp
-      port: 4317
+      port: {{ .Values.service.port }}
       protocol: TCP
-      targetPort: 4317
+      targetPort: {{ .Values.service.port }}
   selector:
     app: {{ .Values.opentelemetryCollector.name }}
-  type: ClusterIP
+  type: {{ .Values.service.type }}

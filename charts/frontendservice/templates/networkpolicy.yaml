@@ -28,7 +28,7 @@ spec:
           {{ .Values.frontend.virtualService.gateway.labelKey }}: {{ .Values.frontend.virtualService.gateway.labelValue }}
     {{- end }}
       ports:
-        - port: 8080
+        - port: {{ .Values.containerPort }}
           protocol: TCP
   {{- end }}
   egress:

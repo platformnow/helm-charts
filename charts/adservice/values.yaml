@@ -7,8 +7,6 @@ images:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-terminationGracePeriodSeconds: 5
-
 serviceAccounts:
   # Specifies whether service accounts should be created.
   create: false
@@ -18,7 +16,9 @@ serviceAccounts:
   annotationsOnlyForCartservice: false
 
 # Specifies if the livenessProbe and readinessProbe are using the native gRPC support with Kubernetes 1.24.
-nativeGrpcHealthCheck: false
+nativeGrpcHealthCheck: true
+
+terminationGracePeriodSeconds: 5
 
 service:
   ## Specify what kind of Service you want.

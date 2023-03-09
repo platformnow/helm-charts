@@ -26,5 +26,5 @@ spec:
             methods:
               - POST
             ports:
-              - "50051"
+              - {{ .Values.service.port | quote }}
 {{- end }}

@@ -2,8 +2,8 @@ apiVersion: v2
 name: emailservice
 description: A Helm chart for Kubernetes for Online Boutique Email Service
 type: application
-version: 0.1.0
-appVersion: "v0.5.1"
+version: 0.2.0
+appVersion: "v0.5.2"
 maintainers:
   - email: officialplatformguy@gmail.com
     name: ThePlatformGuy

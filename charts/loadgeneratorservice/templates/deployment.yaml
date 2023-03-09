@@ -20,7 +20,7 @@ spec:
       {{- else }}
       serviceAccountName: default
       {{- end }}
-      terminationGracePeriodSeconds: 5
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       restartPolicy: Always
       securityContext:
         fsGroup: 1000
@@ -71,10 +71,4 @@ spec:
               value: "{{ .Values.frontend.name }}:80"
             - name: USERS
               value: "10"
-          resources:
-            requests:
-              cpu: 300m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
+          resources: {{ toYaml .Values.resources | nindent 10 }}

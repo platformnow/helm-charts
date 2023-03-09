@@ -30,5 +30,5 @@ spec:
               - GET
               - POST
             ports:
-              - "8080"
+              - {{ .Values.containerPort | quote }}
 {{- end }}
