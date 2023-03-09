@@ -23,4 +23,27 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/common-0.1.0/common-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-08T16:52:58.440437511Z"
+  portalnow-template:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-09T09:12:32.659165429Z"
+    dependencies:
+    - name: common
+      repository: https://platformnow.github.io/helm-charts
+      version: ^0.1.0
+    description: A fully templated Helm Chart for any App!
+    digest: e504711416d6280c75f3f3cf297b849aa84f7399b71bb1c581a9dcfc39114deb
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: portalnow-template
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/portalnow-template-0.1.0/portalnow-template-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-03-09T09:12:32.65917423Z"
