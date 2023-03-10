@@ -45,7 +45,7 @@ spec:
             - containerPort: {{ .Values.service.port }}
           env:
             - name: PORT
-              value: {{ .Values.service.port }}
+              value: {{ .Values.service.port | quote }}
           resources: {{- toYaml .Values.resources | nindent 10 }}
           readinessProbe:
             initialDelaySeconds: 20
