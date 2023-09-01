@@ -1,0 +1,20 @@
+apiVersion: v2
+name: landscape-frontend
+description: Landscape IDP Frontend Application
+type: application
+version: 0.0.1
+appVersion: "0.0.1"
+maintainers:
+  - email: officialplatformguy@gmail.com
+    name: ThePlatformGuy
+annotations:
+  category: Application
+keywords:
+  - application
+  - frontend
+  - landscape idp
+icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+dependencies:
+  - name: common
+    version: ^0.1.0
+    repository: https://platformnow.github.io/helm-charts

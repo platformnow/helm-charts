@@ -1,0 +1,38 @@
+{{- if and (not .Values.ingress.enabled ) (.Values.istio.enabled) (.Values.istio.serviceEntrys) }}
+{{- range $k, $v := .Values.istio.serviceEntrys }}
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+    name: {{ $k }}
+spec:
+  hosts:
+  {{- include "common.tplvalues.render" (dict "value" $v.hosts "context" $) | nindent 4 }}
+  ports:
+  {{- include "common.tplvalues.render" (dict "value" $v.ports "context" $) | nindent 4 }}
+  resolution: {{ $v.resolution  }}
+  {{- if $v.addresses }}
+  addresses:
+  {{- include "common.tplvalues.render" (dict "value" $v.addresses "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.location }}
+  location: {{ $v.location  }}
+  {{- end }}
+  {{- if $v.endpoints }}
+  endpoints:
+  {{- include "common.tplvalues.render" (dict "value" $v.endpoints "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.workloadSelector }}
+  workloadSelector:
+  {{- include "common.tplvalues.render" (dict "value" $v.workloadSelector "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.exportTo }}
+  exportTo:
+  {{- include "common.tplvalues.render" (dict "value" $v.exportTo "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.subjectAltNames }}
+  subjectAltNames:
+  {{- include "common.tplvalues.render" (dict "value" $v.subjectAltNames "context" $) | nindent 4 }}
+  {{- end }}
+---
+{{- end -}}
+{{- end -}}

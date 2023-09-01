@@ -1,0 +1,42 @@
+{{- if and (not .Values.ingress.enabled ) .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+    service: {{ include "common.names.name" . }}
+  {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.commonLabels "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if .Values.commonAnnotations }}
+    annotations:{{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  hosts:
+  {{- $baseUrl := include "baseUrl" . }}
+  {{- if $baseUrl }}
+    - {{ $baseUrl }}
+  {{- end }}
+  {{- if .Values.istio.virtualService.hosts }}
+  {{- include "common.tplvalues.render" (dict "value" .Values.istio.virtualService.hosts "context" $) | nindent 4 }}
+  {{- end }}
+  gateways:
+  {{- if and .Values.istio.gateway.enabled (not .Values.istio.gateway.externalGateway) }}
+    - {{ include "common.names.name" . }}
+  {{- else }}
+    - {{ .Values.istio.gateway.externalGateway }}
+  {{- end }}
+  {{- if .Values.istio.virtualService.http }}
+  http:
+    {{- include "common.tplvalues.render" (dict "value" .Values.istio.virtualService.http "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if .Values.istio.virtualService.tls }}
+  tls:
+    {{- include "common.tplvalues.render" (dict "value" .Values.istio.virtualService.tls "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if .Values.istio.virtualService.tcp }}
+  tcp:
+    {{- include "common.tplvalues.render" (dict "value" .Values.istio.virtualService.tcp "context" $) | nindent 4 }}
+  {{- end }}
+{{- end }}
