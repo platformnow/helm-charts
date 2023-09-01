@@ -370,8 +370,8 @@ persistence:
 
 ## Extra environment variables (When Added Env Vars are than available in the application container)
 extraEnvVars:
-    - name: BASE_URL
-      value: http://landscape-backend
+  - name: BASE_URL
+    value: http://landscape-backend
 
 ## Container port to be used for exposing http server
 containerPort: 3000
@@ -412,7 +412,7 @@ readinessProbe:
   failureThreshold: 10
   successThreshold: 1
   enabled: true
-  path : "/healthcheck"
+  path: "/healthcheck"
 
 ## Custom startupProbe that overrides the default one
 customStartupProbe: {}
