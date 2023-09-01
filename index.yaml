@@ -302,6 +302,56 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/frontendservice-0.1.0/frontendservice-0.1.0.tgz
     version: 0.1.0
+  landscape-backend:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: 0.0.1
+    created: "2023-09-01T16:27:07.90328997Z"
+    dependencies:
+    - name: common
+      repository: https://platformnow.github.io/helm-charts
+      version: ^0.1.0
+    description: Landscape IDP Backend Application
+    digest: b968590bcbb05db3e33abeadf2b804ca04304123c92a5eed472716733376b577
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - backend
+    - landscape idp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: landscape-backend
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/landscape-backend-0.0.1/landscape-backend-0.0.1.tgz
+    version: 0.0.1
+  landscape-frontend:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: 0.0.1
+    created: "2023-09-01T16:27:08.051375431Z"
+    dependencies:
+    - name: common
+      repository: https://platformnow.github.io/helm-charts
+      version: ^0.1.0
+    description: Landscape IDP Frontend Application
+    digest: d4a387b0437a8ec523aa0f17e9052beda29643c5f59650f10b023c8ca5c6eec4
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - frontend
+    - landscape idp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: landscape-frontend
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/landscape-frontend-0.0.1/landscape-frontend-0.0.1.tgz
+    version: 0.0.1
   loadgeneratorservice:
   - annotations:
       category: Application
@@ -583,4 +633,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-10T12:05:33.693191299Z"
+generated: "2023-09-01T16:27:08.051478832Z"
