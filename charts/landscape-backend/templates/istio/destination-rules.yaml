@@ -1,0 +1,26 @@
+{{- if and (not .Values.ingress.enabled ) (.Values.istio.enabled) (.Values.istio.destinationRule) }}
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ include "common.names.fullname" . }}
+spec:
+  host: {{ .Values.istio.destinationRule.host }}
+  {{- if .Values.istio.destinationRule.trafficPolicy }}
+  trafficPolicy:
+  {{- with .Values.istio.destinationRule.trafficPolicy }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.istio.destinationRule.subsets }}
+  subsets:
+  {{- with .Values.istio.destinationRule.subsets }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.istio.destinationRule.exportTo }}
+  exportTo:
+  {{- with .Values.istio.destinationRule.exportTo }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+{{- end }}

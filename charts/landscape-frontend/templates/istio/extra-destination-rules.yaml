@@ -1,0 +1,22 @@
+{{- if and (not .Values.ingress.enabled ) (.Values.istio.enabled) (.Values.istio.extraDestinationRules) }}
+{{- range $k, $v := .Values.istio.extraDestinationRules }}
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ $k }}
+spec:
+  host: {{ $v.host  }}
+  {{- if $v.trafficPolicy }}
+  trafficPolicy:
+  {{- include "common.tplvalues.render" (dict "value" $v.trafficPolicy "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.subsets }}
+  subsets:
+  {{- include "common.tplvalues.render" (dict "value" $v.subsets "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if $v.exportTo }}
+  exportTo:
+  {{- include "common.tplvalues.render" (dict "value" $v.exportTo "context" $) | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}

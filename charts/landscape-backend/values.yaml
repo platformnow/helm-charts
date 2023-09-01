@@ -1,0 +1,496 @@
+# Required for remote deployments and Istio Virtual Services. Defaults to "127.0.0.1.nip.io" on localhost
+baseUrl: ""
+
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry and imagePullSecrets
+##
+global:
+  imageRegistry: ""
+  ## E.g.
+  ## imagePullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+  storageClass: ""
+
+## Force target Kubernetes version (using Helm capabilities if not set)
+kubeVersion:
+## String to partially override full name template (will maintain the release name)
+nameOverride:
+## String to fully override full name template
+fullnameOverride: ""
+## Kubernetes Cluster Domain
+clusterDomain: cluster.local
+## Extra objects to deploy (evaluated as a template)
+extraDeploy: []
+## Add labels to all the deployed resources
+commonLabels: {}
+## Add annotations to all the deployed resources
+commonAnnotations: {}
+## Label Selector
+## A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed.
+## An empty label selector matches all objects. A null label selector matches no objects.
+## ref: https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/#LabelSelector
+##  Map of {key,value} pairs.
+matchLabels:
+  version: "v1"
+## A list of label selector requirements. The requirements are ANDed.
+matchExpressions: []
+## Enable diagnostic mode in the deployment(s)/statefulset(s)
+diagnosticMode:
+  ## Enable diagnostic mode (all probes will be disabled and the command will be overridden)
+  enabled: false
+  ## Command to override all containers in the the deployment(s)/statefulset(s)
+  command:
+    - sleep
+  ## Args to override all containers in the deployment(s)/statefulset(s)
+  args:
+    - infinity
+
+## Application image version
+image:
+  ## Docker Registry
+  registry: ghcr.io/platformnow
+  ## Docker Repository
+  repository: landscape-backend
+  ## Image tag (immutable tags are recommended)
+  tag: latest
+  ## Image pull policy
+  pullPolicy: Always
+  ## Image pull secrets
+  pullSecrets: []
+
+## Configure Container Security Context (only main container)
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+containerSecurityContext:
+  enabled: false
+  runAsUser: 1001
+  runAsNonRoot: true
+
+## Hooks for container(s) to automate configuration before or after startup
+lifecycleHooks: {}
+## Override default container command (useful when using custom images)
+command: []
+## Override default container args (useful when using custom images)
+args: []
+## Use envFrom to point to a configmap and pull all env var in it
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
+#  - configMapRef:
+#      name: environment-configurations
+envFrom:
+#  - secretRef:
+#      name: landscape-secrets
+
+## Enable PodDisruptionBudget for pod
+## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+  maxUnavailable: 3
+## Deployment pod host aliases
+## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+hostAliases: []
+## Optional duration in seconds the pod needs to terminate gracefully.
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
+##
+terminationGracePeriodSeconds: 90
+
+## Restart policy for all containers within the pod. One of Always, OnFailure, Never.
+## Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+## Possible enum values:
+##
+##  "Always"
+##  "Never"
+##  "OnFailure"
+restartPolicy: ""
+
+## Optional duration in seconds the pod may be active on the node relative to StartTime before the
+## system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
+activeDeadlineSeconds: ""
+
+## Priority Class Name
+## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass
+priorityClassName: ""
+## Use an alternate scheduler, e.g. "stork".
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+schedulerName: ""
+## Configure Pods Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+podSecurityContext:
+  enabled: false
+  fsGroup: 1001
+## Node affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+nodeAffinityPreset:
+  ## Example:
+  ## key: "kubernetes.io/e2e-az-name"
+  ##
+  key: ""
+  type: ""
+  ## Example:
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+## Affinity for pod assignment
+## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+## Note: this configuration supersedes the global affinity configuration
+affinity: {}
+## Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`.
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+podAffinityPreset: ""
+## Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`.
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+podAntiAffinityPreset: ""
+## Node labels for pod assignment
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+nodeSelector: {}
+## Tolerations for pod assignment
+## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+## Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
+## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
+topologySpreadConstraints: {}
+## Add extra labels to the pod
+podLabels:
+  version: "v1"
+## Add extra annotations to the pod
+podAnnotations: {}
+## Specify content for a config file
+configuration: ""
+## Name of an existing config map containing the applications' config file
+existingConfigmap: ""
+## Mount Additional ConfigMaps to the Pod (Key=Name, Map of Values = Data)
+extraConfigMaps: {}
+## Configure and disable automated rolling updates for the application
+## Ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment
+updateStrategy:
+  ## Options are "Recreate" or "RollingUpdate"
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+## The Number of replicated Pods required
+replicaCount: 1
+
+## Minimum number of seconds for which a newly created pod should be ready without any of its container crashing,
+## for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+minReadySeconds: ""
+
+## The number of old ReplicaSets to retain to allow rollback.
+## This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+revisionHistoryLimit: "5"
+
+## The maximum time in seconds for a deployment to make progress before it is considered to be failed.
+## The deployment controller will continue to process failed deployments and a condition with a
+## ProgressDeadlineExceeded reason will be surfaced in the deployment status.
+## Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+progressDeadlineSeconds: ""
+
+## Indicates that the deployment is paused.
+paused: ""
+
+## Configure the ingress resource that allows you to access application
+## ref: http://kubernetes.io/docs/user-guide/ingress/
+ingress:
+  ## Enable ingress record generation
+  enabled: false
+  ## Force Ingress API version (automatically detected if not set)
+  apiVersion: ""
+  ## Ingress path type
+  pathType: ImplementationSpecific
+  certManager: false
+  ## For a full list of possible ingress annotations, please see
+  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+  ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
+  ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
+  ## Example:
+  ## kubernetes.io/ingress.class: nginx
+  annotations: {}
+  ## Most likely this will be just one host, but in the event more hosts are needed, this is an array
+  hosts:
+    - name: local
+      path: /
+      ## Set this to true in order to enable TLS on the ingress record
+      ##
+      tls: false
+        ## Optionally specify the TLS hosts for the ingress record
+        ## Useful when the Ingress controller supports www-redirection
+      ## If not specified, the above host name will be used
+      ## Examples:
+      ## - www.example.local
+      ## - example.local
+      ##
+      tlsHosts: []
+      ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+      ##
+      tlsSecret: local-tls
+  ## Key and certificate should start with -----BEGIN CERTIFICATE----- or
+  ## -----BEGIN RSA PRIVATE KEY-----
+  ##
+  ## name should line up with a tlsSecret set further up
+  ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
+  ##
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  # - name: example.local-tls
+  #   key:
+  #   certificate:
+  secrets: []
+
+## Expose the application as a network service.
+## Ref: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  ## Specify what kind of Service you want.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
+  ## Application service HTTP port
+  port: 80
+  ## Control where client requests go, to the same pod or round-robin
+  ## Values: ClientIP or None
+  ## ref: https://kubernetes.io/docs/user-guide/services/
+  ##
+  sessionAffinity: None
+  ## Application service Cluster IP
+  ## e.g.:
+  ## clusterIP: None
+  ##
+  clusterIP: ""
+  ## NodePort
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+  ##
+  nodePort: ""
+  loadBalancerIP: ""
+  ## Service Load Balancer sources
+  ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ## e.g:
+  ## loadBalancerSourceRanges:
+  ##   - 10.10.10.0/24
+  ##
+  loadBalancerSourceRanges: []
+  ## Service external traffic policy
+  ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+  ## Additional custom annotations for the application service
+  annotations: {}
+  ## Extra port to expose on the Applications service
+  extraPorts: []
+
+## Role Based Access
+## Ref: https://kubernetes.io/docs/admin/authorization/rbac/
+rbac:
+  ## Specifies whether RBAC rules should be created
+  create: false
+  ## @param rbac.rules Custom RBAC rules to set
+  ## e.g:
+  ## rules:
+  ##   - apiGroups:
+  ##       - ""
+  ##     resources:
+  ##       - pods
+  ##     verbs:
+  ##       - get
+  ##       - list
+  ##
+  rules: []
+
+## Pods Service Account
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+serviceAccount:
+  ## Specifies whether a ServiceAccount should be created
+  create: true
+  ## The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+  ## Annotations for service account. Evaluated as a template.
+  ## Only used if `create` is `true`.
+  annotations: {}
+
+## Add initContainers to the pod.
+## Example:
+## initContainers:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+initContainers: []
+
+## Optionally specify extra list of additional volumeMounts for the Container
+extraVolumeMounts: {}
+
+## Optionally specify extra list of additional volumes for the Pod
+extraVolumes: []
+
+## Enable HorizontalPodAutoscaler
+## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+autoscaling:
+  enabled: false
+  replicas:
+    min: 1
+    max: 3
+  targets:
+    cpu: 80
+    memory: 80
+
+## Enable VerticalPodAutoscaler
+## ref: https://cloud.google.com/kubernetes-engine/docs/concepts/verticalpodautoscaler
+verticalAutoscaling:
+  enabled: false
+  ## Possible values are "Off", "Initial", "Recreate", and "Auto".
+  updateMode: "Off"
+
+## Persistent Volume Storage Class
+## If defined, storageClassName: <storageClass>
+## If set to "-", storageClassName: "", which disables dynamic provisioning
+## If undefined (the default) or set to null, no storageClassName spec is
+##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+##   GKE, AWS & OpenStack)
+##
+persistence:
+  enabled: false
+  ## A manually managed Persistent Volume and Claim
+  ## If defined, PVC must be created manually before volume will be bound
+  ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
+  # existingClaim:
+  ## The path the volume will be mounted at, useful when using different images.
+  mountPath: /data
+  ## The subdirectory of the volume to mount to, useful in dev environments
+  ## and one PV for multiple services.
+  ##
+  subPath: ''
+  storageClass: "-"
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+  annotations: {}
+
+## Extra environment variables (When Added Env Vars are than available in the application container)
+extraEnvVars:
+  - name: POSTGRES_SERVICE_HOST
+    value: postgresql
+  - name: POSTGRES_SERVICE_PORT
+    value: "5432"
+  - name: POSTGRES_USER
+    value: postgres
+  - name: POSTGRES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: postgresql
+        key: postgres-password
+
+## Container port to be used for exposing http server
+containerPort: 7007
+
+## Extra Container ports to be used for exposing extra ports on the container
+extraContainerPorts: []
+
+## Enable startupProbe on the application container
+## Initial delay seconds for startupProbe
+## Period seconds for startupProbe
+## Timeout seconds for startupProbe
+## Failure threshold for startupProbe
+## Success threshold for startupProbe
+##
+startupProbe:
+  enabled: false
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 15
+  successThreshold: 1
+
+## Configure extra options for liveliness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 10
+  successThreshold: 1
+  enabled: true
+  path: "/healthcheck"
+
+readinessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 10
+  successThreshold: 1
+  enabled: true
+  path : "/healthcheck"
+
+## Custom startupProbe that overrides the default one
+customStartupProbe: {}
+## Custom liveliness probe
+customLivenessProbe: {}
+## Custom readiness probe
+customReadinessProbe: {}
+
+## List of sidecar containers to be added to Pods
+## Example:
+## sidecars:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+sidecars: []
+
+## Container resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+resources:
+  limits: {}
+  requests: {}
+
+## Metrics Configuration for Enabling Prometheus Service Monitors
+metrics:
+  # Default Service Monitor for the App
+  serviceMonitor:
+    enabled: false
+    ## Namespace in which Prometheus is running
+    ## e.g:
+    ## namespace: monitoring
+    namespace: ""
+    ## Interval at which metrics should be scraped.
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+    interval: 10s
+    scrapeTimeout: 10s
+    # ServiceMonitor Labels
+    ## e.g:
+    ## labels:
+    ##   prometheus: monitoring
+    labels:
+      prometheus: monitoring
+    path: ""
+    port: http
+    honorLabels: true
+  # Extra Service Monitor for dependency charts
+  extraServiceMonitors: {}
+
+## The following values are for istio specific resources.
+istio:
+  ## istio enabled on cluster and namespace has been labeled (kubectl label namespace default istio-injection=enabled --overwrite)
+  enabled: false
+  ## ref:  https://istio.io/latest/docs/reference/config/networking/gateway/
+  gateway:
+    ## Generates an ingress Gateway using baseUrl (use only for local development)
+    enabled: true
+    ## When above is disabled supply the name of a gateway using
+    externalGateway: ""
+    labels:
+      istio: ingressgateway
+  ## ref: https://istio.io/latest/docs/reference/config/networking/virtual-service/
+  virtualService: {}
+  ## Additional Virtual Services for dependencies and not the app itself
+  extraVirtualServices: {}
+  ## https://istio.io/latest/docs/reference/config/networking/destination-rule/
+  destinationRule: {}
+  ## https://istio.io/latest/docs/reference/config/networking/service-entry/
+  serviceEntrys: {}
