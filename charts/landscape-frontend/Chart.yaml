@@ -2,7 +2,7 @@ apiVersion: v2
 name: landscape-frontend
 description: Landscape IDP Frontend Application
 type: application
-version: 0.0.2
+version: 0.0.3
 appVersion: "0.0.1"
 maintainers:
   - email: officialplatformguy@gmail.com
