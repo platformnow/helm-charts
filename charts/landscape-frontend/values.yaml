@@ -369,9 +369,7 @@ persistence:
   annotations: {}
 
 ## Extra environment variables (When Added Env Vars are than available in the application container)
-extraEnvVars:
-  - name: BASE_URL
-    value: http://landscape-backend
+extraEnvVars: []
 
 ## Container port to be used for exposing http server
 containerPort: 3000
@@ -388,7 +386,7 @@ extraContainerPorts: []
 ##
 startupProbe:
   enabled: false
-  initialDelaySeconds: 60
+  initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 1
   failureThreshold: 15
@@ -397,7 +395,7 @@ startupProbe:
 ## Configure extra options for liveliness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
 livenessProbe:
-  initialDelaySeconds: 60
+  initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 5
   failureThreshold: 10
@@ -406,7 +404,7 @@ livenessProbe:
   path: "/healthcheck"
 
 readinessProbe:
-  initialDelaySeconds: 60
+  initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 5
   failureThreshold: 10
