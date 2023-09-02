@@ -332,6 +332,30 @@ entries:
       category: Application
     apiVersion: v2
     appVersion: 0.0.1
+    created: "2023-09-02T22:45:55.969613254Z"
+    dependencies:
+    - name: common
+      repository: https://platformnow.github.io/helm-charts
+      version: ^0.1.0
+    description: Landscape IDP Frontend Application
+    digest: 0a130228a449bc349244f5677039fbe0dde1f6c3a4254e5a284e27de2620fb79
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - frontend
+    - landscape idp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: landscape-frontend
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/landscape-frontend-0.0.2/landscape-frontend-0.0.2.tgz
+    version: 0.0.2
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: 0.0.1
     created: "2023-09-01T16:27:08.051375431Z"
     dependencies:
     - name: common
@@ -633,4 +657,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-01T16:27:08.051478832Z"
+generated: "2023-09-02T22:45:55.969648554Z"
