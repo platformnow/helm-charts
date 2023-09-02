@@ -129,7 +129,7 @@ spec:
           env:
             {{- $baseUrl := include "baseUrl" . }}
             {{- if $baseUrl }}
-            - name: {{ include "common.names.name" . | upper }}_URL
+            - name: APP_URL
               value: http://{{ $baseUrl }}
             {{- end }}
             {{- if .Values.extraEnvVars }}
