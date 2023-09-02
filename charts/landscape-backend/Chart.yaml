@@ -2,7 +2,7 @@ apiVersion: v2
 name: landscape-backend
 description: Landscape IDP Backend Application
 type: application
-version: 0.0.1
+version: 0.0.2
 appVersion: "0.0.1"
 maintainers:
   - email: officialplatformguy@gmail.com
