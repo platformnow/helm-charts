@@ -307,6 +307,30 @@ entries:
       category: Application
     apiVersion: v2
     appVersion: 0.0.1
+    created: "2023-09-02T23:02:06.25936933Z"
+    dependencies:
+    - name: common
+      repository: https://platformnow.github.io/helm-charts
+      version: ^0.1.0
+    description: Landscape IDP Backend Application
+    digest: e17b6d1aefba9a52e73778b2744adf0ae9b5f8ef851860e2776dec9114f841b6
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - backend
+    - landscape idp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: landscape-backend
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/landscape-backend-0.0.2/landscape-backend-0.0.2.tgz
+    version: 0.0.2
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: 0.0.1
     created: "2023-09-01T16:27:07.90328997Z"
     dependencies:
     - name: common
@@ -328,6 +352,30 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/landscape-backend-0.0.1/landscape-backend-0.0.1.tgz
     version: 0.0.1
   landscape-frontend:
+  - annotations:
+      category: Application
+    apiVersion: v2
+    appVersion: 0.0.1
+    created: "2023-09-02T23:02:06.472166496Z"
+    dependencies:
+    - name: common
+      repository: https://platformnow.github.io/helm-charts
+      version: ^0.1.0
+    description: Landscape IDP Frontend Application
+    digest: 3e3f411674981f7d3b13756c233e6a93dc25bc0d823931122edc52d8896952f7
+    icon: https://img.icons8.com/material-outlined/icon/ship-wheel.png
+    keywords:
+    - application
+    - frontend
+    - landscape idp
+    maintainers:
+    - email: officialplatformguy@gmail.com
+      name: ThePlatformGuy
+    name: landscape-frontend
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/landscape-frontend-0.0.3/landscape-frontend-0.0.3.tgz
+    version: 0.0.3
   - annotations:
       category: Application
     apiVersion: v2
@@ -657,4 +705,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-02T22:45:55.969648554Z"
+generated: "2023-09-02T23:02:06.472399825Z"
