@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
     paths:
       - 'README.md'
 
@@ -12,10 +12,10 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           cp -f README.md ${{ runner.temp }}/README.md
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: gh-pages
       - run: |
@@ -23,5 +23,5 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add README.md
-          git commit --signoff -m "Sync README from master"
+          git commit --signoff -m "Sync README from main"
           git push

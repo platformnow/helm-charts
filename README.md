@@ -1,15 +1,15 @@
 # PlatformNOW Helm Charts
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=master) [![Releases downloads](https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg)](https://github.com/platformnow/helm-charts/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main) [![Releases downloads](https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg)](https://github.com/platformnow/helm-charts/releases)
 
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
 Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
-Once Helm is set up properly, add the repo as follows:
+Once Helm is set up properly, add the repository as follows:
 
-```console
+```bash
 helm repo add platformnow https://platformnow.github.io/helm-charts
 ```
 
@@ -21,7 +21,6 @@ The source code of all [PlatformNOW](https://platformnow.io) [Helm](https://helm
 
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
 We'd love to have you contribute! Please refer to our [contribution guidelines](https://github.com/platformnow/helm-charts/blob/masyer/CONTRIBUTING.md) for details.
-
 
 ## License
 
