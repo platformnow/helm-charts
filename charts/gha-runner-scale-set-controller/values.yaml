@@ -1,8 +1,0 @@
-gha-runner-scale-set-controller:
-  fullnameOverride: gha-rs-controller
-  serviceAccount:
-    create: true
-    annotations: {}
-    name: "gha-rs-controller-sa"
-  flags:
-    watchSingleNamespace: arc-systems
