@@ -16,7 +16,7 @@ kubeVersion: '>=1.25.0-0'
 maintainers:
   - name: argoproj
     url: https://argoproj.github.io/
-  - name: Mohammad Rahman
+  - name: mohammadsrahman
     email: mohammadsrahman@me.com
 name: argo-cd
 sources:
