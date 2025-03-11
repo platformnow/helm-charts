@@ -28,11 +28,7 @@
   "packageRules": [
     {
       "matchDatasources": ["helm", "docker"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "groupName": "chore(deps): update helm chart {{{depName}}} to v{{{newVersion}}}"
+      "groupName": "chore(deps): update helm chart {{{depName}}}"
     }
-  ],
-  "separateMajorMinor": true,
-  "prConcurrentLimit": 10,
-  "branchConcurrentLimit": 20
+  ]
 }
