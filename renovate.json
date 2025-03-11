@@ -21,9 +21,8 @@
         "charts/.+/Chart\\.yaml$"
       ],
       "matchStrings": [
-        "^name:\\s*(?<depName>[^\\s]+)\\s*[\\s\\S]*?^version:\\s*['\"]?(?<currentValue>[\\d\\.]+)['\"]?\\s*$"
-      ],
-      "depNameTemplate": "{{depName}}"
+        "^version: (?<currentValue>.*?)\\s+.*dependencies:[^]*?name: (?<depName>[^\\s]+)\\s+version: \\k<currentValue>"
+      ]
     }
   ],
   "packageRules": [
