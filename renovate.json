@@ -21,7 +21,7 @@
         "charts/.+/Chart\\.yaml$"
       ],
       "matchStrings": [
-        "dependencies:\\s*-\\s*name:\\s*(?<depName>[^\\s]+)[^'\"]*?version:\\s*(?<currentValue>[^\\s'\"]*).*?\\s+version:\\s*['\"]?(?<currentValue>[^\\s'\"]*)\\s"
+        "^version:\\s*['\"]?(?<currentValue>[\\d\\.]+)['\"]?\\s*$"
       ]
     }
   ],
