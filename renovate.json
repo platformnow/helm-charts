@@ -11,7 +11,7 @@
         "charts/.+/Chart\\.yaml$"
       ],
       "matchStrings": [
-        "#\\s*renovate: image=(?<depName>.*?)\\s+appVersion:\\s*[\"']?(?<currentValue>[\\w+\\.\\-]*)"
+        "#\\s*renovate: image=(?<depName>.*?)\\s+appVersion:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
       ]
     }
   ]

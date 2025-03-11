@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=quay.io/argoproj/argocd
 appVersion: v2.14.2
 dependencies:
   - name: argo-cd
