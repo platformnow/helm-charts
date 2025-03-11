@@ -1,11 +1,9 @@
 # PlatformNOW Helm Charts
 
-<p align="center">
-    <a href="https://github.com/platformnow/helm-charts/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
-    <a href="https://github.com/platformnow/helm-charts/actions/workflows/release.yml"><img src="https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main" alt="Release Charts"></a>
-    <a href="https://github.com/platformnow/helm-charts/releases"><img src="https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg" alt="Downloads"></a>
-    <a href="https://github.com/platformnow/helm-charts/actions"><img src="https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main" alt="Build Status"></a>
-</p>
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/platformnow/helm-charts/blob/main/LICENSE)
+[![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions/workflows/release.yml)
+[![Downloads](https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg)](https://github.com/platformnow/helm-charts/releases)
+[![Build Status](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions)
 
 ## Introduction
 
@@ -17,21 +15,20 @@ This repository contains [Helm](https://helm.sh) charts for various projects use
 
 These charts serve as parent charts that include specific dependencies:
 
-| Chart | Description | Dependencies |
-|-------|-------------|--------------|
-| aws-ebs-csi-driver | AWS EBS CSI driver | aws-ebs-csi-driver v2.34.0 |
-| aws-load-balancer-controller | AWS Load Balancer Controller | aws-load-balancer-controller v1.6.2 |
-| cert-manager | Certificate management controller | cert-manager v1.17.1 |
-| cluster-autoscaler | Kubernetes cluster autoscaler | cluster-autoscaler v9.46.2 |
-| crossplane | Cloud native control plane framework | crossplane v1.19.0 |
-| external-dns | External DNS controller | external-dns v1.15.2 |
-| external-secrets | External Secrets operator | external-secrets v0.14.3 |
-| istio-base | Istio base components | base v1.25.0 |
-| istio-ingress | Istio ingress gateway | gateway v1.25.0 |
-| istiod | Istio control plane | istiod v1.25.0 |
-| localstack | LocalStack - A fully functional local AWS cloud stack | localstack v0.6.22 |
-| metrics-server | Kubernetes metrics server | metrics-server v3.12.2 |
-| opentelemetry-operator | OpenTelemetry Operator | opentelemetry-operator v0.71.3 |
+| Chart | Description |
+| aws-ebs-csi-driver | AWS EBS CSI driver |
+| aws-load-balancer-controller | AWS Load Balancer Controller |
+| cert-manager | Certificate management controller |
+| cluster-autoscaler | Kubernetes cluster autoscaler |
+| crossplane | Cloud native control plane framework |
+| external-dns | External DNS controller |
+| external-secrets | External Secrets operator |
+| istio-base | Istio base components |
+| istio-ingress | Istio ingress gateway |
+| istiod | Istio control plane |
+| localstack | LocalStack - A fully functional local AWS cloud stack |
+| metrics-server | Kubernetes metrics server |
+| opentelemetry-operator | OpenTelemetry Operator |
 
 ### Standalone Charts
 
@@ -115,7 +112,7 @@ The charts in this repository follow [Semantic Versioning](https://semver.org/).
 
 If you discover a security issue, please bring it to our attention right away!
 
-Please **DO NOT** file a public issue, instead send your report privately to security@platformnow.io.
+Please **DO NOT** file a public issue, instead send your report privately to [security@platformnow.io](security@platformnow.io).
 
 ## Support
 

@@ -30,11 +30,13 @@ jobs:
         with:
           version: v3.10.2
 
+      # todo: Move dependency chart adding to chart-testing action using https://github.com/helm/chart-testing#using-private-chart-repositories
       - name: Add dependency chart repos
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add grafana https://grafana.github.io/helm-charts
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo add jetstack https://charts.jetstack.io
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
