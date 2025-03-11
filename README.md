@@ -1,11 +1,9 @@
 # PlatformNOW Helm Charts
 
-<p align="center">
-    <a href="https://github.com/platformnow/helm-charts/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
-    <a href="https://github.com/platformnow/helm-charts/actions/workflows/release.yml"><img src="https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main" alt="Release Charts"></a>
-    <a href="https://github.com/platformnow/helm-charts/releases"><img src="https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg" alt="Downloads"></a>
-    <a href="https://github.com/platformnow/helm-charts/actions"><img src="https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main" alt="Build Status"></a>
-</p>
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/platformnow/helm-charts/blob/main/LICENSE)
+[![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions/workflows/release.yml)
+[![Downloads](https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg)](https://github.com/platformnow/helm-charts/releases)
+[![Build Status](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions)
 
 ## Introduction
 
@@ -114,7 +112,7 @@ The charts in this repository follow [Semantic Versioning](https://semver.org/).
 
 If you discover a security issue, please bring it to our attention right away!
 
-Please **DO NOT** file a public issue, instead send your report privately to security@platformnow.io.
+Please **DO NOT** file a public issue, instead send your report privately to [security@platformnow.io](security@platformnow.io).
 
 ## Support
 
