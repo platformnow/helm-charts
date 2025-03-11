@@ -29,7 +29,9 @@
     {
       "matchDatasources": ["helm", "docker"],
       "groupName": "helm-chart-releases",
-      "commitMessageExtra": "update {{{depName}}} chart {{{newVersion}}} and appVersion {{{newValue}}}"
+      "commitMessagePrefix": "chore({{{depName}}}):",
+      "commitMessageAction": "update",
+      "commitMessageExtra": "chart {{{newVersion}}} and appVersion {{{newValue}}}"
     }
   ]
 }
