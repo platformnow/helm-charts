@@ -168,6 +168,32 @@ entries:
     version: 0.1.0
   cert-manager:
   - apiVersion: v2
+    appVersion: v1.17.1
+    created: "2025-03-11T21:25:48.016585171Z"
+    dependencies:
+    - name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v1.17.1
+    description: A Helm chart for cert-manager
+    digest: e670bec0473bebf03825cf0022c5a7bea5cee9feb3de777fd32ab400d234b664
+    home: https://cert-manager.io
+    icon: https://raw.githubusercontent.com/cert-manager/community/4d35a69437d21b76322157e6284be4cd64e6d2b7/logo/logo-small.png
+    keywords:
+    - cert-manager
+    - kube-lego
+    - letsencrypt
+    - tls
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: cert-manager
+    sources:
+    - https://github.com/cert-manager/cert-manager
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/cert-manager-v1.17.1/cert-manager-v1.17.1.tgz
+    version: v1.17.1
+  - apiVersion: v2
     appVersion: v1.17.0
     created: "2025-03-11T21:22:24.243205521Z"
     dependencies:
@@ -791,4 +817,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-11T21:22:24.24325281Z"
+generated: "2025-03-11T21:25:48.016635665Z"
