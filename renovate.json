@@ -28,10 +28,12 @@
   "packageRules": [
     {
       "matchDatasources": ["helm", "docker"],
-      "groupName": "helm-chart-releases",
-      "commitMessagePrefix": "chore({{{depName}}}):",
-      "commitMessageAction": "update",
-      "commitMessageExtra": "chart {{{newVersion}}} and appVersion {{{newValue}}}"
+      "commitMessageTopic": "Helm chart {{depName}}",
+      "separateMinorPatch": true
     }
-  ]
+  ],
+  "separateMajorMinor": true,
+  "separateMinorPatch": true,
+  "prConcurrentLimit": 10,
+  "branchConcurrentLimit": 20
 }
