@@ -28,7 +28,7 @@
   "packageRules": [
     {
       "matchDatasources": ["helm", "docker"],
-      "commitMessageTopic": "Helm chart {{depName}}",
+      "groupName": "chore(deps): update helm chart {{{depName}}} to v{{{newVersion}}}",
       "separateMinorPatch": true
     }
   ],
