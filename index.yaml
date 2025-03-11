@@ -66,6 +66,35 @@ entries:
     version: 0.1.0
   argo-cd:
   - apiVersion: v2
+    appVersion: v2.14.5
+    created: "2025-03-11T11:17:08.612393203Z"
+    dependencies:
+    - name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 7.8.10
+    description: A Helm chart for Argo CD, a declarative, GitOps continuous delivery
+      tool for Kubernetes.
+    digest: e6f92e43aee0ba44cb6627ed2e16407d4876c2b914f0852ea1b845ce84c50741
+    home: https://github.com/argoproj/argo-helm
+    icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
+    keywords:
+    - argoproj
+    - argocd
+    - gitops
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - name: argoproj
+      url: https://argoproj.github.io/
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: argo-cd
+    sources:
+    - https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+    - https://github.com/argoproj/argo-cd
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/argo-cd-7.8.10/argo-cd-7.8.10.tgz
+    version: 7.8.10
+  - apiVersion: v2
     appVersion: v2.14.2
     created: "2025-03-10T22:33:59.3274295Z"
     dependencies:
@@ -735,4 +764,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-10T22:33:59.327473953Z"
+generated: "2025-03-11T11:17:08.612445551Z"
