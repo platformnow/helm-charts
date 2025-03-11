@@ -17,21 +17,20 @@ This repository contains [Helm](https://helm.sh) charts for various projects use
 
 These charts serve as parent charts that include specific dependencies:
 
-| Chart | Description | Dependencies |
-|-------|-------------|--------------|
-| aws-ebs-csi-driver | AWS EBS CSI driver | aws-ebs-csi-driver v2.34.0 |
-| aws-load-balancer-controller | AWS Load Balancer Controller | aws-load-balancer-controller v1.6.2 |
-| cert-manager | Certificate management controller | cert-manager v1.17.1 |
-| cluster-autoscaler | Kubernetes cluster autoscaler | cluster-autoscaler v9.46.2 |
-| crossplane | Cloud native control plane framework | crossplane v1.19.0 |
-| external-dns | External DNS controller | external-dns v1.15.2 |
-| external-secrets | External Secrets operator | external-secrets v0.14.3 |
-| istio-base | Istio base components | base v1.25.0 |
-| istio-ingress | Istio ingress gateway | gateway v1.25.0 |
-| istiod | Istio control plane | istiod v1.25.0 |
-| localstack | LocalStack - A fully functional local AWS cloud stack | localstack v0.6.22 |
-| metrics-server | Kubernetes metrics server | metrics-server v3.12.2 |
-| opentelemetry-operator | OpenTelemetry Operator | opentelemetry-operator v0.71.3 |
+| Chart | Description |
+| aws-ebs-csi-driver | AWS EBS CSI driver |
+| aws-load-balancer-controller | AWS Load Balancer Controller |
+| cert-manager | Certificate management controller |
+| cluster-autoscaler | Kubernetes cluster autoscaler |
+| crossplane | Cloud native control plane framework |
+| external-dns | External DNS controller |
+| external-secrets | External Secrets operator |
+| istio-base | Istio base components |
+| istio-ingress | Istio ingress gateway |
+| istiod | Istio control plane |
+| localstack | LocalStack - A fully functional local AWS cloud stack |
+| metrics-server | Kubernetes metrics server |
+| opentelemetry-operator | OpenTelemetry Operator |
 
 ### Standalone Charts
 
