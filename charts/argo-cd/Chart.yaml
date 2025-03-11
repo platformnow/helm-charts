@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: datasource=helm depName=argo-cd registryUrl=https://argoproj.github.io/argo-helm
 version: 7.8.5
 # renovate: image=quay.io/argoproj/argocd
 appVersion: v2.14.2

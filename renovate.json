@@ -21,20 +21,13 @@
         "charts/.+/Chart\\.yaml$"
       ],
       "matchStrings": [
-        "^version: (?<currentValue>.*?)\\s+.*dependencies:[^]*?name: (?<depName>[^\\s]+)\\s+version: \\k<currentValue>"
+        "#\\s*renovate: datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)\\s+registryUrl=(?<registryUrl>.*?)\\s+version:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
       ]
     }
   ],
   "packageRules": [
     {
       "matchDatasources": ["helm", "docker"],
-      "groupName": "helm-chart-releases",
-      "commitMessageExtra": "update {{{depName}}} chart {{{newVersion}}} and appVersion {{{newValue}}}"
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchFileNames": ["charts/.+/Chart\\.yaml$"],
-      "matchUpdateTypes": ["patch", "minor", "major"],
       "groupName": "helm-chart-releases",
       "commitMessageExtra": "update {{{depName}}} chart {{{newVersion}}} and appVersion {{{newValue}}}"
     }
