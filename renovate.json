@@ -19,14 +19,16 @@
     {
       "matchDatasources": ["helm", "docker"],
       "groupName": "helm-chart-releases",
-      "prTitle": "chore(helm): update chart {{{newVersion}}} and appVersion {{{newValue}}}"
+      "commitMessageTopic": "helm chart",
+      "commitMessage": "update chart {{{newVersion}}} and appVersion {{{newValue}}}"
     },
     {
       "matchDatasources": ["helm"],
       "matchFileNames": ["charts/.+/Chart\\.yaml$"],
       "matchUpdateTypes": ["patch", "minor", "major"],
       "groupName": "helm-chart-releases",
-      "prTitle": "chore(helm): update chart {{{newVersion}}} and appVersion {{{newValue}}}"
+      "commitMessageTopic": "helm chart",
+      "commitMessage": "update chart {{{newVersion}}} and appVersion {{{newValue}}}"
     }
   ]
 }
