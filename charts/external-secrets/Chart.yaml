@@ -1,0 +1,21 @@
+apiVersion: v2
+# renovate: datasource=helm depName=external-secrets registryUrl=https://charts.external-secrets.io
+version: v0.14.4
+# renovate: image=oci.external-secrets.io/external-secrets/external-secrets
+appVersion: v0.14.4
+dependencies:
+- name: external-secrets
+  repository: https://charts.external-secrets.io/
+  version: 0.14.4
+description: External secret management for Kubernetes
+home: https://github.com/external-secrets/external-secrets
+icon: https://raw.githubusercontent.com/external-secrets/external-secrets/main/assets/eso-logo-large.png
+keywords:
+- kubernetes-external-secrets
+- secrets
+kubeVersion: '>= 1.19.0-0'
+maintainers:
+- email: mohammadsrahman@me.com
+  name: mohammadsrahman
+name: external-secrets
+type: application
