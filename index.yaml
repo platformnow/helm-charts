@@ -371,6 +371,30 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/emailservice-0.1.0/emailservice-0.1.0.tgz
     version: 0.1.0
+  external-secrets:
+  - apiVersion: v2
+    appVersion: v0.14.4
+    created: "2025-03-11T21:47:10.908247408Z"
+    dependencies:
+    - name: external-secrets
+      repository: https://charts.external-secrets.io/
+      version: 0.14.4
+    description: External secret management for Kubernetes
+    digest: 6b13c2135adb49ce62a83ee6e707cd86e73e168645e7d8cd3e7c9460377fb28d
+    home: https://github.com/external-secrets/external-secrets
+    icon: https://raw.githubusercontent.com/external-secrets/external-secrets/main/assets/eso-logo-large.png
+    keywords:
+    - kubernetes-external-secrets
+    - secrets
+    kubeVersion: '>= 1.19.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: external-secrets
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/external-secrets-v0.14.4/external-secrets-v0.14.4.tgz
+    version: v0.14.4
   frontendservice:
   - annotations:
       category: Application
@@ -817,4 +841,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-11T21:25:48.016635665Z"
+generated: "2025-03-11T21:47:10.908300218Z"
