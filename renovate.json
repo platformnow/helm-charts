@@ -12,13 +12,12 @@
       ],
       "matchStrings": [
         "#\\s*renovate: image=(?<packageName>.*?)\\s+appVersion:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
-      ],
-      "groupName": "helm-chart-releases"
+      ]
     }
   ],
   "packageRules": [
     {
-      "matchDatasources": ["helm"],
+      "matchDatasources": ["helm", "docker"],
       "groupName": "helm-chart-releases"
     }
   ]
