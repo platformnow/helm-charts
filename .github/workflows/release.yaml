@@ -70,25 +70,23 @@ jobs:
             output=$(helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts)
             echo "Push output: $output"
             
-            # Extract the digest more reliably using proper OCI reference format
-            digest=$(echo "$output" | grep -o 'sha256:[a-f0-9]\{64\}')
+            # Extract the digest from the specific Digest: line
+            digest=$(echo "$output" | grep "Digest: " | sed 's/Digest: //')
             if [ -z "$digest" ]; then
               echo "Failed to extract digest from output: $output"
               exit 1
             fi
             
-            # Extract chart name from package file
-            file=${pkg##*/}
-            name=${file%-*}
-            
-            # Construct the full reference and verify it's not empty
-            ref="ghcr.io/${GITHUB_REPOSITORY_OWNER}/charts/${name}@${digest}"
-            echo "Signing reference: $ref"
-            
-            if [ -z "$digest" ] || [ -z "$name" ]; then
-              echo "Error: Failed to construct valid reference"
+            # Extract chart name and version from the Pushed: line
+            ref=$(echo "$output" | grep "Pushed: " | sed 's/Pushed: //')
+            if [ -z "$ref" ]; then
+              echo "Failed to extract reference from output: $output"
               exit 1
             fi
+            
+            # Convert tag-based reference to digest-based reference
+            ref="${ref%:*}@${digest}"
+            echo "Signing reference: $ref"
             
             # Sign the chart with keyless signing
             cosign sign --yes --recursive "${ref}"
