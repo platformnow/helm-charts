@@ -8,7 +8,7 @@
       "customType": "regex",
       "datasourceTemplate": "docker",
       "fileMatch": [
-        "(^|/)Chart\\.yaml$"
+        "charts/.+/Chart\\.yaml$"
       ],
       "matchStrings": [
         "#\\s*renovate: image=(?<depName>.*?)\\s+appVersion:\\s*[\"']?(?<currentValue>[\\w+\\.\\-]*)"
