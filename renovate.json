@@ -2,6 +2,35 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "docker",
+      "fileMatch": [
+        "charts/.+/Chart\\.yaml$"
+      ],
+      "matchStrings": [
+        "#\\s*renovate: image=(?<packageName>.*?)\\s+appVersion:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
+      ]
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "helm",
+      "fileMatch": [
+        "charts/.+/Chart\\.yaml$"
+      ],
+      "matchStrings": [
+        "#\\s*renovate: datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)\\s+registryUrl=(?<registryUrl>.*?)\\s+version:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["helm", "docker"],
+      "groupName": "helm-chart-updates",
+      "commitMessage": "chore(deps): update helm chart {{{depName}}} to v{{{newVersion}}}"
+    }
   ]
 }
 {
