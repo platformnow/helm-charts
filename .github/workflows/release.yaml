@@ -66,23 +66,26 @@ jobs:
             if [ -z "${pkg:-}" ]; then
               break
             fi
-            # Push the chart and capture full output
-            output=$(helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts)
-            echo "Push output: $output"
+            # Push the chart and capture both stdout and stderr
+            output=$(helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts 2>&1)
+            echo "Full output:"
+            echo "$output"
             
             # Extract the digest from the specific Digest: line
             digest=$(echo "$output" | grep "Digest: " | sed 's/Digest: //')
             if [ -z "$digest" ]; then
-              echo "Failed to extract digest from output: $output"
+              echo "Failed to extract digest from output"
               exit 1
             fi
+            echo "Found digest: $digest"
             
             # Extract chart name and version from the Pushed: line
             ref=$(echo "$output" | grep "Pushed: " | sed 's/Pushed: //')
             if [ -z "$ref" ]; then
-              echo "Failed to extract reference from output: $output"
+              echo "Failed to extract reference from output"
               exit 1
             fi
+            echo "Found reference: $ref"
             
             # Convert tag-based reference to digest-based reference
             ref="${ref%:*}@${digest}"
