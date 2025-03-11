@@ -53,22 +53,43 @@ jobs:
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.8.1
+        with:
+          cosign-release: 'v3.8.1'
+      
+      - name: Check cosign installation
+        run: cosign version
 
       - name: Push charts to GHCR and sign
-        env:
-          COSIGN_EXPERIMENTAL: 1
-        # when filling gaps with previously released charts, cr would create
-        # nothing in .cr-release-packages/, and the original globbing character
-        # would be preserved, causing a non-zero exit. Set nullglob to fix this
         run: |
           shopt -s nullglob
           for pkg in .cr-release-packages/*; do
             if [ -z "${pkg:-}" ]; then
               break
             fi
-            helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts > .digest
-            file=${pkg##*/}       # extracts file name from full directory path
-            name=${file%-*}       # extracts chart name from filename
-            digest=$(awk -F "[, ]+" '/Digest/{print $NF}' < .digest)
-            cosign sign --yes ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts/"${name}"@"${digest}"
+            # Push the chart and capture full output
+            output=$(helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts)
+            echo "Push output: $output"
+            
+            # Extract the digest more reliably using proper OCI reference format
+            digest=$(echo "$output" | grep -o 'sha256:[a-f0-9]\{64\}')
+            if [ -z "$digest" ]; then
+              echo "Failed to extract digest from output: $output"
+              exit 1
+            fi
+            
+            # Extract chart name from package file
+            file=${pkg##*/}
+            name=${file%-*}
+            
+            # Construct the full reference and verify it's not empty
+            ref="ghcr.io/${GITHUB_REPOSITORY_OWNER}/charts/${name}@${digest}"
+            echo "Signing reference: $ref"
+            
+            if [ -z "$digest" ] || [ -z "$name" ]; then
+              echo "Error: Failed to construct valid reference"
+              exit 1
+            fi
+            
+            # Sign the chart with keyless signing
+            cosign sign --yes --recursive "${ref}"
           done
