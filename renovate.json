@@ -18,7 +18,15 @@
   "packageRules": [
     {
       "matchDatasources": ["helm", "docker"],
-      "groupName": "helm-chart-releases"
+      "groupName": "helm-chart-releases",
+      "prTitle": "chore(helm): update chart {{{newVersion}}} and appVersion {{{newValue}}}"
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchFileNames": ["charts/.+/Chart\\.yaml$"],
+      "matchUpdateTypes": ["patch", "minor", "major"],
+      "groupName": "helm-chart-releases",
+      "prTitle": "chore(helm): update chart {{{newVersion}}} and appVersion {{{newValue}}}"
     }
   ]
 }
