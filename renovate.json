@@ -5,12 +5,17 @@
     ":semanticCommits",
     "helpers:pinGitHubActionDigestsToSemver"
   ],
-  "stabilityDays": 3,
+  "minimumReleaseAge": "3 days",
   "pruneStaleBranches": true,
-  "recreateClosed": true,
+  "recreateWhen": "always",
   "rebaseWhen": "behind-base-branch",
   "semanticCommits": "enabled",
-  "labels": ["{{depType}}", "datasource::{{datasource}}", "type::{{updateType}}", "manager::{{manager}}"],
+  "labels": [
+    "{{depType}}",
+    "datasource::{{datasource}}",
+    "type::{{updateType}}",
+    "manager::{{manager}}"
+  ],
   "customManagers": [
     {
       "customType": "regex",
@@ -35,7 +40,10 @@
   ],
   "packageRules": [
     {
-      "matchDatasources": ["helm", "docker"],
+      "matchDatasources": [
+        "helm",
+        "docker"
+      ],
       "groupName": "helm-chart-updates",
       "commitMessagePrefix": "chore(deps):",
       "commitMessageAction": "update",
