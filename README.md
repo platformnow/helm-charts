@@ -16,6 +16,7 @@ This repository contains [Helm](https://helm.sh) charts for various projects use
 These charts serve as parent charts that include specific dependencies:
 
 | Chart | Description |
+|-------|-------------|
 | aws-ebs-csi-driver | AWS EBS CSI driver |
 | aws-load-balancer-controller | AWS Load Balancer Controller |
 | cert-manager | Certificate management controller |
