@@ -1,8 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":semanticCommits"
   ],
+  "stabilityDays": 3,
+  "pruneStaleBranches": true,
+  "recreateClosed": true,
+  "rebaseWhen": "behind-base-branch",
+  "semanticCommits": "enabled",
+  "labels": ["{{depType}}", "datasource::{{datasource}}", "type::{{updateType}}", "manager::{{manager}}"],
   "customManagers": [
     {
       "customType": "regex",
