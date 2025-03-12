@@ -1,7 +1,7 @@
 # PlatformNOW Helm Charts
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/platformnow/helm-charts/blob/main/LICENSE)
-[![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions/workflows/release.yml)
+[![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions/workflows/release.yaml)
 [![Downloads](https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg)](https://github.com/platformnow/helm-charts/releases)
 [![Build Status](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions)
 

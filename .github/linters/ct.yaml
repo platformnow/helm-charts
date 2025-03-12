@@ -6,5 +6,9 @@ chart-dirs:
 chart-repos:
   - platformnow=https://platformnow.github.io/helm-charts
 helm-extra-args: --timeout 600s
+# See https://github.com/helm/chart-testing#configuration
 additional-commands:
-# - helm unittest --helm3 --strict --file unittests/*.yaml --file 'unittests/**/*.yaml' {{ .Path }}
+  - sh -ec "if [ -f '{{ .Path }}/ci/lint.sh' ]; then shellcheck '{{ .Path }}/ci/lint.sh'; bash '{{ .Path }}/ci/lint.sh'; fi"
+  # - helm unittest --helm3 --strict --file unittests/*.yaml --file 'unittests/**/*.yaml' {{ .Path }}
+github-groups: true
+validate-maintainers: false
