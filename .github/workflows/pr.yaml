@@ -224,44 +224,45 @@ jobs:
         id: generate-diffs
         run: |
           DIFF_OUTPUT=""
+          WORK_DIR="$(pwd)"
           
           echo "Processing chart: $CHART"
           
-          # Create temporary directories
-          mkdir -p "old" "new" "old_deps" "new_deps"
+          # Create temporary directories with full path
+          mkdir -p "$WORK_DIR/old/$CHART" "$WORK_DIR/new/$CHART" "$WORK_DIR/old_deps" "$WORK_DIR/new_deps"
           
           # Save current chart state
-          cp -r "$CHART" "current_chart"
+          cp -r "$CHART"/* "$WORK_DIR/old/$CHART/"
           
           # Get and build old version dependencies
           git checkout ${{ github.event.pull_request.base.sha }}
-          cp -r "$CHART" "old/"
+          cd "$WORK_DIR/old/$CHART"
+          helm dependency update
+          # Extract all .tgz files from charts directory
+          if [ -d "charts" ]; then
+            for chart in charts/*.tgz; do
+              if [ -f "$chart" ]; then
+                tar -xzf "$chart" -C "$WORK_DIR/old_deps/"
+              fi
+            done
+          fi
           
           # Get and build new version dependencies
+          cd "$WORK_DIR"
           git checkout ${{ github.sha }}
-          cp -r "$CHART" "new/"
-          
-          # Process old version
-          cd "old/$CHART"
+          cp -r "$CHART"/* "$WORK_DIR/new/$CHART/"
+          cd "$WORK_DIR/new/$CHART"
           helm dependency update
           # Extract all .tgz files from charts directory
-          for chart in charts/*.tgz; do
-            if [ -f "$chart" ]; then
-              tar -xzf "$chart" -C ../../old_deps/
-            fi
-          done
-          cd ../..
+          if [ -d "charts" ]; then
+            for chart in charts/*.tgz; do
+              if [ -f "$chart" ]; then
+                tar -xzf "$chart" -C "$WORK_DIR/new_deps/"
+              fi
+            done
+          fi
           
-          # Process new version
-          cd "new/$CHART"
-          helm dependency update
-          # Extract all .tgz files from charts directory
-          for chart in charts/*.tgz; do
-            if [ -f "$chart" ]; then
-              tar -xzf "$chart" -C ../../new_deps/
-            fi
-          done
-          cd ../..
+          cd "$WORK_DIR"
           
           # Generate diff for the chart itself (excluding charts directory)
           chart_diff=$(diff -ru --exclude=charts "old/$CHART" "new/$CHART" || true)
@@ -284,10 +285,6 @@ jobs:
             echo -e "$DIFF_OUTPUT" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
           fi
-          
-          # Restore original state
-          rm -rf "$CHART"
-          mv "current_chart" "$CHART"
 
       - name: Post Helm diff as PR comment
         if: steps.generate-diffs.outputs.has_diff == 'true'
