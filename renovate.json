@@ -45,6 +45,7 @@
       ],
       "versioning": "semver",
       "ignoreUnstable": false,
+      "ignorePrerelease": true,
       "rangeStrategy": "bump",
       "separateMinorPatch": true,
       "separateMajorMinor": true,
@@ -65,7 +66,8 @@
       "groupName": "helm-chart-updates",
       "commitMessagePrefix": "chore(deps):",
       "commitMessageAction": "update",
-      "commitMessageExtra": "helm chart {{{depName}}} to v{{{newVersion}}}"
+      "commitMessageExtra": "helm chart {{{depName}}} to v{{{newVersion}}}",
+      "ignorePrerelease": true
     }
   ]
 }
