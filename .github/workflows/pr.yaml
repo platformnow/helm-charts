@@ -225,116 +225,106 @@ jobs:
         run: |
           DIFF_OUTPUT=""
           WORK_DIR="$(pwd)"
+          CHART_PATH="charts/$CHART"
           
-          echo "Processing chart: $CHART"
+          echo "Processing chart: $CHART_PATH"
           
-          # Create temporary directories with full path
-          mkdir -p "$WORK_DIR/old/$CHART" "$WORK_DIR/new/$CHART" 
-          mkdir -p "$WORK_DIR/old_deps_extracted" "$WORK_DIR/new_deps_extracted"
+          # Create temporary directories
+          mkdir -p "$WORK_DIR/old/charts" "$WORK_DIR/new/charts"
+          mkdir -p "$WORK_DIR/old_extracted" "$WORK_DIR/new_extracted"
           
-          # Get old version dependencies
+          # Copy and process old chart
           git checkout ${{ github.event.pull_request.base.sha }}
           echo "Using base SHA: ${{ github.event.pull_request.base.sha }}"
-          cp -r "$CHART" "$WORK_DIR/old/"
-          
-          # Extract old dependency versions from Chart.yaml
-          cd "$WORK_DIR/old/$CHART"
-          OLD_DEPS=$(yq e '.dependencies[] | .name + "=" + .version + "=" + .repository' Chart.yaml)
-          echo "Old dependencies:"
-          echo "$OLD_DEPS"
-          cd "$WORK_DIR"
-          
-          # Get new version dependencies
-          git checkout ${{ github.sha }}
-          echo "Using PR SHA: ${{ github.sha }}"
-          cp -r "$CHART" "$WORK_DIR/new/"
-          
-          # Extract new dependency versions from Chart.yaml
-          cd "$WORK_DIR/new/$CHART"
-          NEW_DEPS=$(yq e '.dependencies[] | .name + "=" + .version + "=" + .repository' Chart.yaml)
-          echo "New dependencies:"
-          echo "$NEW_DEPS"
-          cd "$WORK_DIR"
-          
-          # Process old dependencies
-          echo "Processing old dependencies..."
-          while IFS='=' read -r name version repo; do
-            if [[ -n "$name" && -n "$version" && -n "$repo" ]]; then
-              echo "Pulling old version of $name: $version from $repo"
-              helm pull "$name" --version "$version" --repo "$repo" --untar -d "$WORK_DIR/old_deps_extracted"
-            fi
-          done <<< "$OLD_DEPS"
-          
-          # Process new dependencies
-          echo "Processing new dependencies..."
-          while IFS='=' read -r name version repo; do
-            if [[ -n "$name" && -n "$version" && -n "$repo" ]]; then
-              echo "Pulling new version of $name: $version from $repo"
-              helm pull "$name" --version "$version" --repo "$repo" --untar -d "$WORK_DIR/new_deps_extracted"
-            fi
-          done <<< "$NEW_DEPS"
-          
-          # Generate diff for the chart itself (excluding charts directory)
-          chart_diff=$(diff -ru --exclude=charts "$WORK_DIR/old/$CHART" "$WORK_DIR/new/$CHART" || true)
-          
-          # Generate diff for dependencies templates
-          deps_diff=""
-          for old_dep in "$WORK_DIR/old_deps_extracted"/*; do
-            if [ -d "$old_dep" ]; then
-              dep_name=$(basename "$old_dep")
-              # Extract base name without version
-              base_name=$(echo "$dep_name" | sed -E 's/(-[0-9]+\.[0-9]+\.[0-9]+.*)$//')
-              
-              # Find matching new dependency (may have different version)
-              new_dep_path=""
-              for new_dep in "$WORK_DIR/new_deps_extracted"/*; do
-                if [ -d "$new_dep" ]; then
-                  new_dep_name=$(basename "$new_dep")
-                  new_base_name=$(echo "$new_dep_name" | sed -E 's/(-[0-9]+\.[0-9]+\.[0-9]+.*)$//')
-                  if [ "$new_base_name" = "$base_name" ]; then
-                    new_dep_path="$new_dep"
-                    break
-                  fi
+          if [ -d "$CHART_PATH" ]; then
+            cp -r "$CHART_PATH" "$WORK_DIR/old/charts/"
+            cd "$WORK_DIR/old/$CHART_PATH"
+            echo "Running helm dependency update for old chart..."
+            helm dependency update
+            
+            # Extract all chart dependencies
+            if [ -d "charts" ]; then
+              for chart_tgz in charts/*.tgz; do
+                if [ -f "$chart_tgz" ]; then
+                  echo "Extracting old dependency: $chart_tgz"
+                  mkdir -p "$WORK_DIR/old_extracted/$(basename "$chart_tgz" .tgz)"
+                  tar -xzf "$chart_tgz" -C "$WORK_DIR/old_extracted/$(basename "$chart_tgz" .tgz)" --strip-components=1
                 fi
               done
-              
-              if [ -n "$new_dep_path" ]; then
-                echo "Comparing templates for $dep_name vs $(basename "$new_dep_path")..."
-                # Focus on templates directory which contains the actual Kubernetes manifests
-                if [ -d "$old_dep/templates" ] && [ -d "$new_dep_path/templates" ]; then
-                  dep_diff=$(diff -ru "$old_dep/templates" "$new_dep_path/templates" || true)
-                  if [ -n "$dep_diff" ]; then
-                    deps_diff+="### Changes in $base_name templates ($(basename "$old_dep") → $(basename "$new_dep_path"))\n\n\`\`\`diff\n$dep_diff\n\`\`\`\n\n"
-                  else
-                    deps_diff+="### No template changes in $base_name ($(basename "$old_dep") → $(basename "$new_dep_path"))\n\n"
-                  fi
+            fi
+          else
+            echo "Chart $CHART_PATH not found in base branch"
+          fi
+          
+          # Copy and process new chart
+          cd "$WORK_DIR"
+          git checkout ${{ github.sha }}
+          echo "Using PR SHA: ${{ github.sha }}"
+          if [ -d "$CHART_PATH" ]; then
+            cp -r "$CHART_PATH" "$WORK_DIR/new/charts/"
+            cd "$WORK_DIR/new/$CHART_PATH"
+            echo "Running helm dependency update for new chart..."
+            helm dependency update
+            
+            # Extract all chart dependencies
+            if [ -d "charts" ]; then
+              for chart_tgz in charts/*.tgz; do
+                if [ -f "$chart_tgz" ]; then
+                  echo "Extracting new dependency: $chart_tgz"
+                  mkdir -p "$WORK_DIR/new_extracted/$(basename "$chart_tgz" .tgz)"
+                  tar -xzf "$chart_tgz" -C "$WORK_DIR/new_extracted/$(basename "$chart_tgz" .tgz)" --strip-components=1
                 fi
+              done
+            fi
+          else
+            echo "Chart $CHART_PATH not found in PR branch"
+          fi
+          
+          cd "$WORK_DIR"
+          
+          # Generate diff for the chart itself (excluding charts directory)
+          if [ -d "$WORK_DIR/old/$CHART_PATH" ] && [ -d "$WORK_DIR/new/$CHART_PATH" ]; then
+            chart_diff=$(diff -ru --exclude=charts "$WORK_DIR/old/$CHART_PATH" "$WORK_DIR/new/$CHART_PATH" || true)
+          else
+            chart_diff=""
+          fi
+          
+          # Generate diff for dependencies
+          deps_diff=""
+          
+          # Find all unique dependency names
+          all_deps=()
+          for dep in "$WORK_DIR/old_extracted"/* "$WORK_DIR/new_extracted"/*; do
+            if [ -d "$dep" ]; then
+              dep_name=$(basename "$dep")
+              if [[ ! " ${all_deps[@]} " =~ " ${dep_name} " ]]; then
+                all_deps+=("$dep_name")
               fi
             fi
           done
           
-          # Check for new dependencies
-          for new_dep in "$WORK_DIR/new_deps_extracted"/*; do
-            if [ -d "$new_dep" ]; then
-              new_dep_name=$(basename "$new_dep")
-              new_base_name=$(echo "$new_dep_name" | sed -E 's/(-[0-9]+\.[0-9]+\.[0-9]+.*)$//')
-              
-              # Check if this is a new dependency
-              found=false
-              for old_dep in "$WORK_DIR/old_deps_extracted"/*; do
-                if [ -d "$old_dep" ]; then
-                  old_dep_name=$(basename "$old_dep")
-                  old_base_name=$(echo "$old_dep_name" | sed -E 's/(-[0-9]+\.[0-9]+\.[0-9]+.*)$//')
-                  if [ "$old_base_name" = "$new_base_name" ]; then
-                    found=true
-                    break
-                  fi
+          # Compare each dependency
+          for dep_name in "${all_deps[@]}"; do
+            old_dep="$WORK_DIR/old_extracted/$dep_name"
+            new_dep="$WORK_DIR/new_extracted/$dep_name"
+            
+            if [ -d "$old_dep" ] && [ -d "$new_dep" ]; then
+              # Both versions exist, compare them
+              echo "Comparing templates for $dep_name..."
+              if [ -d "$old_dep/templates" ] && [ -d "$new_dep/templates" ]; then
+                dep_diff=$(diff -ru "$old_dep/templates" "$new_dep/templates" || true)
+                if [ -n "$dep_diff" ]; then
+                  deps_diff+="### Changes in $dep_name templates\n\n\`\`\`diff\n$dep_diff\n\`\`\`\n\n"
+                else
+                  deps_diff+="### No template changes in $dep_name\n\n"
                 fi
-              done
-              
-              if [ "$found" = false ]; then
-                deps_diff+="### New dependency: $new_dep_name\n\n"
               fi
+            elif [ -d "$old_dep" ]; then
+              # Only old version exists
+              deps_diff+="### Dependency removed: $dep_name\n\n"
+            elif [ -d "$new_dep" ]; then
+              # Only new version exists
+              deps_diff+="### New dependency: $dep_name\n\n"
             fi
           done
           
