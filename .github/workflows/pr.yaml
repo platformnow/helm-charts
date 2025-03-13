@@ -228,12 +228,20 @@ jobs:
           echo "Processing chart: $CHART"
           
           # Create temporary directories
-          mkdir -p "old/$CHART" "new/$CHART"
-          mkdir -p "old_deps" "new_deps"
+          mkdir -p "old" "new" "old_deps" "new_deps"
+          
+          # Save current chart state
+          cp -r "$CHART" "current_chart"
           
           # Get and build old version dependencies
           git checkout ${{ github.event.pull_request.base.sha }}
           cp -r "$CHART" "old/"
+          
+          # Get and build new version dependencies
+          git checkout ${{ github.sha }}
+          cp -r "$CHART" "new/"
+          
+          # Process old version
           cd "old/$CHART"
           helm dependency update
           # Extract all .tgz files from charts directory
@@ -244,9 +252,7 @@ jobs:
           done
           cd ../..
           
-          # Get and build new version dependencies
-          git checkout ${{ github.sha }}
-          cp -r "$CHART" "new/"
+          # Process new version
           cd "new/$CHART"
           helm dependency update
           # Extract all .tgz files from charts directory
@@ -278,6 +284,10 @@ jobs:
             echo -e "$DIFF_OUTPUT" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
           fi
+          
+          # Restore original state
+          rm -rf "$CHART"
+          mv "current_chart" "$CHART"
 
       - name: Post Helm diff as PR comment
         if: steps.generate-diffs.outputs.has_diff == 'true'
