@@ -22,6 +22,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write  # Needed for label creation
     
     steps:
       - name: Checkout repository
@@ -100,11 +101,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Ensure labels exist
+          echo "Creating labels if they don't exist..."
+          gh label create "helm-chart" --color "0366d6" --description "Pull requests that add or update Helm charts" || true
+          gh label create "automated-pr" --color "6f42c1" --description "Pull requests created by automated workflows" || true
+          
           # Create PR using GitHub CLI
-          gh pr create \
+          echo "Creating pull request..."
+          PR_URL=$(gh pr create \
             --title "feat(charts): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}" \
             --body "This PR adds the ${{ github.event.inputs.chart_name }} Helm chart version ${{ github.event.inputs.chart_version }}.\n\nChart repository: ${{ github.event.inputs.repo_name }} (${{ github.event.inputs.repo_url }})\n\nThis PR was created automatically by the Add Helm Chart workflow." \
             --base main \
-            --head ${{ env.BRANCH_NAME }} \
-            --label "helm-chart" \
-            --label "automated-pr" 
+            --head ${{ env.BRANCH_NAME }})
+          
+          echo "Pull request created: $PR_URL"
+          
+          # Add labels to the PR
+          echo "Adding labels to pull request..."
+          PR_NUMBER=$(echo $PR_URL | grep -o '[0-9]\+$')
+          gh pr edit $PR_NUMBER --add-label "helm-chart,automated-pr" || true 
