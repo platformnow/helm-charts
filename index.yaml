@@ -385,6 +385,55 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/crossplane-1.19.0-0/crossplane-1.19.0-0.tgz
     version: 1.19.0-0
   - apiVersion: v2
+    appVersion: v1.19.0
+    created: "2025-03-13T22:40:11.429356823Z"
+    dependencies:
+    - name: crossplane
+      repository: https://charts.crossplane.io/stable
+      version: 1.19.0
+    description: Crossplane is an open source Kubernetes add-on that enables platform
+      teams to assemble infrastructure from multiple vendors, and expose higher level
+      self-service APIs for application teams to consume.
+    digest: 2e45ac85baa2bb3f7b9e4c7dbfadbdc70b0a3151f0ef0b89a8f7c1bf52b3593e
+    home: https://crossplane.io
+    icon: https://docs.crossplane.io/android-chrome-192x192.png
+    keywords:
+    - cloud
+    - infrastructure
+    - services
+    - application
+    - database
+    - cache
+    - bucket
+    - infra
+    - app
+    - ops
+    - gcp
+    - azure
+    - aws
+    - alibaba
+    - cloudsql
+    - rds
+    - s3
+    - azuredatabase
+    - asparadb
+    - gke
+    - aks
+    - eks
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: info@crossplane.io
+      name: Crossplane Maintainers
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: crossplane
+    sources:
+    - https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+    - https://github.com/argoproj/argo-cd
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/crossplane-1.19.0-0/crossplane-1.19.0-0.tgz
+    version: 1.19.0-0
+  - apiVersion: v2
     appVersion: v1.18.3
     created: "2025-03-13T11:30:36.457327223Z"
     dependencies:
@@ -1038,4 +1087,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-13T15:18:26.987172813Z"
+generated: "2025-03-13T22:40:11.429484151Z"
