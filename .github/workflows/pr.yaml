@@ -232,12 +232,12 @@ jobs:
           
           echo "===== CREATING TEMPORARY DIRECTORIES ====="
           mkdir -p "$WORK_DIR/old/$(dirname "$CHART")" "$WORK_DIR/new/$(dirname "$CHART")"
-          mkdir -p "$WORK_DIR/old_extracted" "$WORK_DIR/new_extracted"
+          mkdir -p "$WORK_DIR/old_deps" "$WORK_DIR/new_deps"
           echo "Created directories:"
           echo "- $WORK_DIR/old/$(dirname "$CHART")"
           echo "- $WORK_DIR/new/$(dirname "$CHART")"
-          echo "- $WORK_DIR/old_extracted"
-          echo "- $WORK_DIR/new_extracted"
+          echo "- $WORK_DIR/old_deps"
+          echo "- $WORK_DIR/new_deps"
           
           echo "===== PROCESSING OLD CHART VERSION ====="
           git checkout ${{ github.event.pull_request.base.sha }}
@@ -258,13 +258,14 @@ jobs:
               for chart_tgz in charts/*.tgz; do
                 if [ -f "$chart_tgz" ]; then
                   echo "Extracting old dependency: $chart_tgz"
-                  mkdir -p "$WORK_DIR/old_extracted/$(basename "$chart_tgz" .tgz)"
-                  tar -xzf "$chart_tgz" -C "$WORK_DIR/old_extracted/$(basename "$chart_tgz" .tgz)" --strip-components=1
-                  echo "Extracted to $WORK_DIR/old_extracted/$(basename "$chart_tgz" .tgz)"
+                  dep_dir="$WORK_DIR/old_deps/$(basename "$chart_tgz" .tgz)"
+                  mkdir -p "$dep_dir"
+                  tar -xzf "$chart_tgz" -C "$dep_dir" --strip-components=1
+                  echo "Extracted to $dep_dir"
                 fi
               done
               echo "Listing extracted old dependencies:"
-              ls -la "$WORK_DIR/old_extracted"
+              ls -la "$WORK_DIR/old_deps"
             else
               echo "No charts directory found in old version"
             fi
@@ -292,13 +293,14 @@ jobs:
               for chart_tgz in charts/*.tgz; do
                 if [ -f "$chart_tgz" ]; then
                   echo "Extracting new dependency: $chart_tgz"
-                  mkdir -p "$WORK_DIR/new_extracted/$(basename "$chart_tgz" .tgz)"
-                  tar -xzf "$chart_tgz" -C "$WORK_DIR/new_extracted/$(basename "$chart_tgz" .tgz)" --strip-components=1
-                  echo "Extracted to $WORK_DIR/new_extracted/$(basename "$chart_tgz" .tgz)"
+                  dep_dir="$WORK_DIR/new_deps/$(basename "$chart_tgz" .tgz)"
+                  mkdir -p "$dep_dir"
+                  tar -xzf "$chart_tgz" -C "$dep_dir" --strip-components=1
+                  echo "Extracted to $dep_dir"
                 fi
               done
               echo "Listing extracted new dependencies:"
-              ls -la "$WORK_DIR/new_extracted"
+              ls -la "$WORK_DIR/new_deps"
             else
               echo "No charts directory found in new version"
             fi
@@ -324,50 +326,57 @@ jobs:
           echo "===== GENERATING DEPENDENCY DIFFS ====="
           deps_diff=""
           
-          # Find all unique dependency names
-          all_deps=()
-          echo "Finding all unique dependency names..."
-          for dep in "$WORK_DIR/old_extracted"/* "$WORK_DIR/new_extracted"/*; do
-            if [ -d "$dep" ]; then
-              dep_name=$(basename "$dep")
-              if [[ ! " ${all_deps[@]} " =~ " ${dep_name} " ]]; then
-                all_deps+=("$dep_name")
-                echo "Found dependency: $dep_name"
-              fi
-            fi
-          done
-          echo "Total unique dependencies found: ${#all_deps[@]}"
+          # Get dependency names from Chart.lock
+          old_dep_name=""
+          new_dep_name=""
           
-          # Compare each dependency
-          for dep_name in "${all_deps[@]}"; do
-            echo "Processing dependency: $dep_name"
-            old_dep="$WORK_DIR/old_extracted/$dep_name"
-            new_dep="$WORK_DIR/new_extracted/$dep_name"
+          if [ -f "$WORK_DIR/old/$CHART/Chart.lock" ]; then
+            old_dep_name=$(grep -A1 "dependencies:" "$WORK_DIR/old/$CHART/Chart.lock" | grep "name:" | awk '{print $2}')
+            old_dep_version=$(grep -A2 "dependencies:" "$WORK_DIR/old/$CHART/Chart.lock" | grep "version:" | awk '{print $2}')
+            echo "Old dependency: $old_dep_name version $old_dep_version"
+          fi
+          
+          if [ -f "$WORK_DIR/new/$CHART/Chart.lock" ]; then
+            new_dep_name=$(grep -A1 "dependencies:" "$WORK_DIR/new/$CHART/Chart.lock" | grep "name:" | awk '{print $2}')
+            new_dep_version=$(grep -A2 "dependencies:" "$WORK_DIR/new/$CHART/Chart.lock" | grep "version:" | awk '{print $2}')
+            echo "New dependency: $new_dep_name version $new_dep_version"
+          fi
+          
+          # Find the extracted directories
+          old_dep_dir=""
+          new_dep_dir=""
+          
+          if [ -n "$old_dep_name" ] && [ -n "$old_dep_version" ]; then
+            old_dep_dir=$(find "$WORK_DIR/old_deps" -maxdepth 1 -name "$old_dep_name-$old_dep_version" -type d)
+            echo "Old dependency directory: $old_dep_dir"
+          fi
+          
+          if [ -n "$new_dep_name" ] && [ -n "$new_dep_version" ]; then
+            new_dep_dir=$(find "$WORK_DIR/new_deps" -maxdepth 1 -name "$new_dep_name-$new_dep_version" -type d)
+            echo "New dependency directory: $new_dep_dir"
+          fi
+          
+          # Compare dependencies if both exist
+          if [ -n "$old_dep_dir" ] && [ -n "$new_dep_dir" ]; then
+            echo "Comparing dependency: $old_dep_name $old_dep_version → $new_dep_version"
             
-            if [ -d "$old_dep" ] && [ -d "$new_dep" ]; then
-              # Both versions exist, compare them
-              echo "Both old and new versions exist, comparing..."
-              
-              # Compare the entire chart structure
-              echo "Generating diff for entire dependency structure..."
-              dep_diff=$(diff -ru "$old_dep" "$new_dep" || true)
-              if [ -n "$dep_diff" ]; then
-                echo "Changes detected in $dep_name ($(echo "$dep_diff" | wc -l) lines)"
-                deps_diff+="### Changes in $dep_name\n\n\`\`\`diff\n$dep_diff\n\`\`\`\n\n"
-              else
-                echo "No changes detected in $dep_name"
-                deps_diff+="### No changes in $dep_name\n\n"
-              fi
-            elif [ -d "$old_dep" ]; then
-              # Only old version exists
-              echo "Dependency $dep_name was removed in new version"
-              deps_diff+="### Dependency removed: $dep_name\n\n"
-            elif [ -d "$new_dep" ]; then
-              # Only new version exists
-              echo "Dependency $dep_name is new in this version"
-              deps_diff+="### New dependency: $dep_name\n\n"
+            # Compare the entire chart structure
+            echo "Generating diff for entire dependency structure..."
+            dep_diff=$(diff -ru "$old_dep_dir" "$new_dep_dir" || true)
+            if [ -n "$dep_diff" ]; then
+              echo "Changes detected in dependency ($(echo "$dep_diff" | wc -l) lines)"
+              deps_diff+="### Changes in $old_dep_name ($old_dep_version → $new_dep_version)\n\n\`\`\`diff\n$dep_diff\n\`\`\`\n\n"
+            else
+              echo "No changes detected in dependency"
+              deps_diff+="### No changes in $old_dep_name ($old_dep_version → $new_dep_version)\n\n"
             fi
-          done
+          elif [ -n "$old_dep_dir" ]; then
+            echo "Dependency $old_dep_name version $old_dep_version was removed"
+            deps_diff+="### Dependency removed: $old_dep_name version $old_dep_version\n\n"
+          elif [ -n "$new_dep_dir" ]; then
+            echo "Dependency $new_dep_name version $new_dep_version is new"
+            deps_diff+="### New dependency: $new_dep_name version $new_dep_version\n\n"
+          fi
           
           echo "===== COMBINING RESULTS ====="
           # Combine the diffs with headers
