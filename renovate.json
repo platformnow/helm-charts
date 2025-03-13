@@ -62,7 +62,7 @@
         "helm",
         "docker"
       ],
-      "groupName": "helm-chart-updates",
+      "groupName": "helm-charts",
       "commitMessagePrefix": "chore(deps):",
       "commitMessageAction": "update",
       "commitMessageExtra": "helm chart {{{depName}}} to v{{{newVersion}}}",
