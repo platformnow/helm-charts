@@ -1,11 +1,11 @@
 apiVersion: v2
 # renovate: datasource=helm depName=crossplane registryUrl=https://charts.crossplane.io/stable
-version: "1.17.0"
+version: "1.19.0"
 # renovate: image=xpkg.upbound.io/crossplane/crossplane
-appVersion: v1.17.0
+appVersion: v1.19.0
 dependencies:
   - name: crossplane
-    version: 1.17.0
+    version: 1.19.0
     repository: https://charts.crossplane.io/stable
 description: Crossplane is an open source Kubernetes add-on that enables platform
   teams to assemble infrastructure from multiple vendors, and expose higher level
