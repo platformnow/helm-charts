@@ -45,8 +45,7 @@
       ],
       "versioning": "semver",
       "versioningTemplate": "{{#if currentValue}}{{replace '-\\d+$' '' currentValue}}{{else}}{{currentValue}}{{/if}}",
-      "ignoreUnstable": false,
-      "ignorePrerelease": true,
+      "ignoreUnstable": true,
       "rangeStrategy": "bump",
       "separateMinorPatch": true,
       "separateMajorMinor": true,
@@ -68,7 +67,7 @@
       "commitMessagePrefix": "chore(deps):",
       "commitMessageAction": "update",
       "commitMessageExtra": "helm chart {{{depName}}} to v{{{newVersion}}}",
-      "ignorePrerelease": true
+      "ignoreUnstable": true
     }
   ]
 }
