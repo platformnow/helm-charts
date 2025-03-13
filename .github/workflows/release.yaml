@@ -32,6 +32,7 @@ jobs:
           version: v3.12.0
 
       - name: Run chart-releaser
+        id: chart-releaser
         uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
         with:
           skip_existing: true
@@ -40,6 +41,7 @@ jobs:
           CR_GENERATE_RELEASE_NOTES: true
 
       - name: Login to GitHub Container Registry
+        if: steps.chart-releaser.outputs.changed_charts != ''
         uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
         with:
           registry: ghcr.io
@@ -47,14 +49,17 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Cosign
+        if: steps.chart-releaser.outputs.changed_charts != ''
         uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a # v3.8.1
         with:
           cosign-release: 'v2.4.3'
       
       - name: Check cosign installation
+        if: steps.chart-releaser.outputs.changed_charts != ''
         run: cosign version
 
       - name: Push charts to GHCR and sign
+        if: steps.chart-releaser.outputs.changed_charts != ''
         run: |
           shopt -s nullglob
           for pkg in .cr-release-packages/*; do
