@@ -44,7 +44,6 @@
       "matchPackagePatterns": [".*"],
       "versioning": "semver",
       "ignoreUnstable": false,
-      "followTag": false,
       "rangeStrategy": "bump",
       "separateMinorPatch": true,
       "separateMajorMinor": true,
