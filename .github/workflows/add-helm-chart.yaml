@@ -97,6 +97,32 @@ jobs:
 
       - name: Output PR creation instructions
         run: |
-          echo "::notice::Branch '${{ env.BRANCH_NAME }}' has been created and pushed to the repository."
-          echo "::notice::To create a PR, go to: ${{ github.server_url }}/${{ github.repository }}/compare/main...${{ env.BRANCH_NAME }}?expand=1"
-          echo "::notice::Or run this command locally: gh pr create --base main --head ${{ env.BRANCH_NAME }} --title \"feat(charts): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}\" --body \"This PR adds the ${{ github.event.inputs.chart_name }} Helm chart version ${{ github.event.inputs.chart_version }}.\n\nChart repository: ${{ github.event.inputs.repo_name }} (${{ github.event.inputs.repo_url }})\n\nThis PR was created automatically by the Add Helm Chart workflow.\"" 
+          # Create PR URL
+          PR_URL="${{ github.server_url }}/${{ github.repository }}/compare/main...${{ env.BRANCH_NAME }}?expand=1"
+          
+          # Create command for local PR creation
+          PR_CMD="gh pr create --base main --head ${{ env.BRANCH_NAME }} --title \"feat(charts): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}\" --body \"This PR adds the ${{ github.event.inputs.chart_name }} Helm chart version ${{ github.event.inputs.chart_version }}.\n\nChart repository: ${{ github.event.inputs.repo_name }} (${{ github.event.inputs.repo_url }})\n\nThis PR was created automatically by the Add Helm Chart workflow.\""
+          
+          # Output as annotations
+          echo "::notice title=Branch Created::Branch '${{ env.BRANCH_NAME }}' has been created and pushed to the repository."
+          echo "::notice title=Create PR Online::To create a PR, go to: $PR_URL"
+          echo "::notice title=Create PR Locally::Or run this command locally: $PR_CMD"
+          
+          # Also output as job summary
+          echo "# Helm Chart Added Successfully! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The chart **${{ github.event.inputs.chart_name }}** version **${{ github.event.inputs.chart_version }}** has been added to the repository." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Next Steps" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Create a Pull Request" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Click the link below to create a PR:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[Create PR]($PR_URL)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Or Run Locally" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "```bash" >> $GITHUB_STEP_SUMMARY
+          echo "$PR_CMD" >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY 
