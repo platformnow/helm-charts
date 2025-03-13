@@ -25,7 +25,8 @@
       ],
       "matchStrings": [
         "#\\s*renovate: image=(?<packageName>.*?)\\s+appVersion:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
-      ]
+      ],
+      "versioningTemplate": "{{#if currentValue}}{{replace '-\\d+$' '' currentValue}}{{else}}{{currentValue}}{{/if}}"
     },
     {
       "customType": "regex",
@@ -35,7 +36,8 @@
       ],
       "matchStrings": [
         "#\\s*renovate: datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)\\s+registryUrl=(?<registryUrl>.*?)\\s+version:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
-      ]
+      ],
+      "versioningTemplate": "{{#if currentValue}}{{replace '-\\d+$' '' currentValue}}{{else}}{{currentValue}}{{/if}}"
     }
   ],
   "packageRules": [
@@ -44,7 +46,6 @@
         "charts/**"
       ],
       "versioning": "semver",
-      "versioningTemplate": "{{#if currentValue}}{{replace '-\\d+$' '' currentValue}}{{else}}{{currentValue}}{{/if}}",
       "ignoreUnstable": true,
       "rangeStrategy": "bump",
       "separateMinorPatch": true,
