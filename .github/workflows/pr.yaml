@@ -225,20 +225,19 @@ jobs:
         run: |
           DIFF_OUTPUT=""
           WORK_DIR="$(pwd)"
-          CHART_PATH="charts/$CHART"
           
-          echo "Processing chart: $CHART_PATH"
+          echo "Processing chart: $CHART"
           
           # Create temporary directories
-          mkdir -p "$WORK_DIR/old/charts" "$WORK_DIR/new/charts"
+          mkdir -p "$WORK_DIR/old/$(dirname "$CHART")" "$WORK_DIR/new/$(dirname "$CHART")"
           mkdir -p "$WORK_DIR/old_extracted" "$WORK_DIR/new_extracted"
           
           # Copy and process old chart
           git checkout ${{ github.event.pull_request.base.sha }}
           echo "Using base SHA: ${{ github.event.pull_request.base.sha }}"
-          if [ -d "$CHART_PATH" ]; then
-            cp -r "$CHART_PATH" "$WORK_DIR/old/charts/"
-            cd "$WORK_DIR/old/$CHART_PATH"
+          if [ -d "$CHART" ]; then
+            cp -r "$CHART" "$WORK_DIR/old/$(dirname "$CHART")/"
+            cd "$WORK_DIR/old/$CHART"
             echo "Running helm dependency update for old chart..."
             helm dependency update
             
@@ -253,16 +252,16 @@ jobs:
               done
             fi
           else
-            echo "Chart $CHART_PATH not found in base branch"
+            echo "Chart $CHART not found in base branch"
           fi
           
           # Copy and process new chart
           cd "$WORK_DIR"
           git checkout ${{ github.sha }}
           echo "Using PR SHA: ${{ github.sha }}"
-          if [ -d "$CHART_PATH" ]; then
-            cp -r "$CHART_PATH" "$WORK_DIR/new/charts/"
-            cd "$WORK_DIR/new/$CHART_PATH"
+          if [ -d "$CHART" ]; then
+            cp -r "$CHART" "$WORK_DIR/new/$(dirname "$CHART")/"
+            cd "$WORK_DIR/new/$CHART"
             echo "Running helm dependency update for new chart..."
             helm dependency update
             
@@ -277,14 +276,14 @@ jobs:
               done
             fi
           else
-            echo "Chart $CHART_PATH not found in PR branch"
+            echo "Chart $CHART not found in PR branch"
           fi
           
           cd "$WORK_DIR"
           
           # Generate diff for the chart itself (excluding charts directory)
-          if [ -d "$WORK_DIR/old/$CHART_PATH" ] && [ -d "$WORK_DIR/new/$CHART_PATH" ]; then
-            chart_diff=$(diff -ru --exclude=charts "$WORK_DIR/old/$CHART_PATH" "$WORK_DIR/new/$CHART_PATH" || true)
+          if [ -d "$WORK_DIR/old/$CHART" ] && [ -d "$WORK_DIR/new/$CHART" ]; then
+            chart_diff=$(diff -ru --exclude=charts "$WORK_DIR/old/$CHART" "$WORK_DIR/new/$CHART" || true)
           else
             chart_diff=""
           fi
