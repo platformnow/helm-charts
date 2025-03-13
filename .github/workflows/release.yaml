@@ -39,6 +39,7 @@ jobs:
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
           helm repo add jetstack https://charts.jetstack.io
           helm repo add external-secrets https://charts.external-secrets.io
+          helm repo add crossplane-stable https://charts.crossplane.io/stable
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
