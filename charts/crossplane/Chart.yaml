@@ -1,0 +1,47 @@
+apiVersion: v2
+# renovate: datasource=helm depName=crossplane-stable/crossplane registryUrl=https://charts.crossplane.io/stable
+version: 1.18.3
+# renovate: image=xpkg.upbound.io/crossplane/crossplane
+appVersion: v1.18.3
+dependencies:
+  - name: crossplane
+    version: 1.18.3
+    repository: https://charts.crossplane.io/stable
+description: Crossplane is an open source Kubernetes add-on that enables platform
+  teams to assemble infrastructure from multiple vendors, and expose higher level
+  self-service APIs for application teams to consume.
+home: https://crossplane.io
+icon: https://docs.crossplane.io/android-chrome-192x192.png
+keywords:
+  - cloud
+  - infrastructure
+  - services
+  - application
+  - database
+  - cache
+  - bucket
+  - infra
+  - app
+  - ops
+  - gcp
+  - azure
+  - aws
+  - alibaba
+  - cloudsql
+  - rds
+  - s3
+  - azuredatabase
+  - asparadb
+  - gke
+  - aks
+  - eks
+kubeVersion: '>=1.25.0-0'
+maintainers:
+  - email: info@crossplane.io
+    name: Crossplane Maintainers
+  - name: mohammadsrahman
+    email: mohammadsrahman@me.com
+sources:
+  - https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+  - https://github.com/argoproj/argo-cd
+name: crossplane
