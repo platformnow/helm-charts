@@ -25,8 +25,7 @@
       ],
       "matchStrings": [
         "#\\s*renovate: image=(?<packageName>.*?)\\s+appVersion:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
-      ],
-      "versioningTemplate": "{{#if currentValue}}{{replace '-\\d+$' '' currentValue}}{{else}}{{currentValue}}{{/if}}"
+      ]
     },
     {
       "customType": "regex",
@@ -35,9 +34,8 @@
         "charts/.+/Chart\\.yaml$"
       ],
       "matchStrings": [
-        "#\\s*renovate: datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)\\s+registryUrl=(?<registryUrl>.*?)\\s+version:\\s*['\"]?(?<currentValue>[\\w+\\.\\-]*)['\"]?"
-      ],
-      "versioningTemplate": "{{#if currentValue}}{{replace '-\\d+$' '' currentValue}}{{else}}{{currentValue}}{{/if}}"
+        "#\\s*renovate: datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)\\s+registryUrl=(?<registryUrl>.*?)\\s+version:\\s*['\"]?(?<currentValue>\\d+\\.\\d+\\.\\d+)(?:-\\d+)?['\"]?"
+      ]
     }
   ],
   "packageRules": [
