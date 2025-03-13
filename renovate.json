@@ -40,6 +40,21 @@
   ],
   "packageRules": [
     {
+      "matchPaths": ["charts/**"],
+      "matchPackagePatterns": [".*"],
+      "versioning": "semver",
+      "ignoreUnstable": false,
+      "followTag": false,
+      "rangeStrategy": "bump",
+      "separateMinorPatch": true,
+      "separateMajorMinor": true,
+      "ignoreDeprecated": true,
+      "stabilityDays": 3,
+      "prBodyNotes": [
+        "Version number will be automatically appended with build metadata on merge."
+      ]
+    },
+    {
       "matchDatasources": [
         "helm",
         "docker"
