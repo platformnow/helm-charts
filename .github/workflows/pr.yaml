@@ -47,8 +47,8 @@ jobs:
           fi
 
           CHART_VERSION=$(grep -e "^version:" "$CHART/Chart.yaml" | cut -d ":" -f 2 | tr -d '[:space:]' | tr -d '"')
-          # For Renovate PRs, append +0 to the existing version
-          CHART_NEW_VERSION="${CHART_VERSION}+0"
+          # For Renovate PRs, append -0 to the existing version
+          CHART_NEW_VERSION="${CHART_VERSION}-0"
           
           sed -i "s/^version:.*/version: \"${CHART_NEW_VERSION}\"/" "$CHART/Chart.yaml"
 
@@ -131,16 +131,16 @@ jobs:
 
           CHART_VERSION=$(grep -e "^version:" "$CHART/Chart.yaml" | cut -d ":" -f 2 | tr -d '[:space:]' | tr -d '"')
           # Check if version already has build metadata
-          if [[ "$CHART_VERSION" == *"+"* ]]; then
+          if [[ "$CHART_VERSION" == *"-"* ]]; then
             # Extract base version and build number
-            BASE_VERSION=${CHART_VERSION%+*}
-            BUILD_NUM=${CHART_VERSION#*+}
+            BASE_VERSION=${CHART_VERSION%-*}
+            BUILD_NUM=${CHART_VERSION#*-}
             # Increment build number
             NEW_BUILD_NUM=$((BUILD_NUM + 1))
-            CHART_NEW_VERSION="${BASE_VERSION}+${NEW_BUILD_NUM}"
+            CHART_NEW_VERSION="${BASE_VERSION}-${NEW_BUILD_NUM}"
           else
             # Start with build number 1
-            CHART_NEW_VERSION="${CHART_VERSION}+1"
+            CHART_NEW_VERSION="${CHART_VERSION}-1"
           fi
           
           sed -i "s/^version:.*/version: \"${CHART_NEW_VERSION}\"/" "$CHART/Chart.yaml"
