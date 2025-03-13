@@ -76,41 +76,35 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: Create branch
+      - name: Create branch and commit changes
         run: |
           # Create a new branch with a unique name
           BRANCH_NAME="add-chart-${{ github.event.inputs.chart_name }}-${{ github.event.inputs.chart_version }}-$(date +%s)"
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           git checkout -b $BRANCH_NAME
-
-      - name: Commit changes
-        run: |
+          
+          # Add and commit changes
           git add charts/${{ github.event.inputs.chart_name }}
           git add .github/linters/ct.yaml
           
           # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
-            exit 0
+            exit 1
           fi
           
-          git commit -m "feat(new chart): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}"
-          git push origin ${{ env.BRANCH_NAME }}
+          git commit -m "feat(charts): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}"
+          git push origin $BRANCH_NAME
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "feat(new chart): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}"
-          title: "feat(new chart): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}"
-          body: |
-            This PR adds the ${{ github.event.inputs.chart_name }} Helm chart version ${{ github.event.inputs.chart_version }}.
-            
-            Chart repository: ${{ github.event.inputs.repo_name }} (${{ github.event.inputs.repo_url }})
-            
-            This PR was created automatically by the Add Helm Chart workflow.
-          branch: ${{ env.BRANCH_NAME }}
-          base: main
-          labels: |
-            helm-chart
-            automated-pr 
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create PR using GitHub CLI
+          gh pr create \
+            --title "feat(charts): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}" \
+            --body "This PR adds the ${{ github.event.inputs.chart_name }} Helm chart version ${{ github.event.inputs.chart_version }}.\n\nChart repository: ${{ github.event.inputs.repo_name }} (${{ github.event.inputs.repo_url }})\n\nThis PR was created automatically by the Add Helm Chart workflow." \
+            --base main \
+            --head ${{ env.BRANCH_NAME }} \
+            --label "helm-chart" \
+            --label "automated-pr" 
