@@ -40,17 +40,21 @@
   ],
   "packageRules": [
     {
-      "matchPaths": ["charts/**"],
-      "matchPackagePatterns": [".*"],
+      "matchFileNames": [
+        "charts/**"
+      ],
       "versioning": "semver",
       "ignoreUnstable": false,
       "rangeStrategy": "bump",
       "separateMinorPatch": true,
       "separateMajorMinor": true,
       "ignoreDeprecated": true,
-      "stabilityDays": 3,
+      "minimumReleaseAge": "3 days",
       "prBodyNotes": [
         "Version number will be automatically appended with build metadata on merge."
+      ],
+      "matchPackageNames": [
+        "/.*/"
       ]
     },
     {
