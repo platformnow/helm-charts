@@ -1,5 +1,5 @@
 apiVersion: v2
-# renovate: datasource=helm depName=crossplane-stable/crossplane registryUrl=https://charts.crossplane.io/stable
+# renovate: datasource=helm depName=crossplane registryUrl=https://charts.crossplane.io/stable
 version: 1.18.3
 # renovate: image=xpkg.upbound.io/crossplane/crossplane
 appVersion: v1.18.3
