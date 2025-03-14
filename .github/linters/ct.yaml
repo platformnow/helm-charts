@@ -11,6 +11,7 @@ chart-repos:
   - prometheus-community=https://prometheus-community.github.io/helm-charts
   - grafana=https://grafana.github.io/helm-charts
   - bitnami=https://charts.bitnami.com/bitnami
+  - external-dns=https://kubernetes-sigs.github.io/external-dns/
 helm-extra-args: --timeout 600s
 # See https://github.com/helm/chart-testing#configuration
 additional-commands:
