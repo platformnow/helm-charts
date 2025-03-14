@@ -40,24 +40,69 @@ jobs:
           helm repo add ${{ github.event.inputs.repo_name }} ${{ github.event.inputs.repo_url }}
           helm repo update
 
-      - name: Pull and untar chart
+      - name: Create New Chart
         working-directory: charts
         run: |
-          echo "Pulling chart ${{ github.event.inputs.chart_name }} version ${{ github.event.inputs.chart_version }}"
+          mkdir -p ${{ github.event.inputs.chart_name }}
+
+          # Create an empty values.yaml file
+          touch ${{ github.event.inputs.chart_name }}/values.yaml
+
+          # Create an empty README.md file
+          touch ${{ github.event.inputs.chart_name }}/README.md
+
+          # Create an empty Chart.yaml file
+          touch ${{ github.event.inputs.chart_name }}/Chart.yaml
+
+          # Add README content
+          echo "# ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/README.md
+          echo "" >> ${{ github.event.inputs.chart_name }}/README.md
+          echo " Parent chart for ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/README.md
+
+          # Add Chart.yaml content
+          echo "apiVersion: v2" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "name: ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "# renovate: datasource=helm depName=${{ github.event.inputs.chart_name }} registryUrl=$repo_url" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "version: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "# renovate: image=$repo_url" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "appVersion: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "kubeVersion: '>=1.25.0-0'" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "maintainers:" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "  - name: ${{ github.actor }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "    email: ${{ github.actor }}@users.noreply.github.com" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "dependencies:" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "  - name: ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "    version: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "    repository: ${{ github.event.inputs.repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml 
+          echo "    condition: ${{ github.event.inputs.chart_condition }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+
+      - name: Test Chart
+        working-directory: charts
+        run: |
+          helm dependency update ${{ github.event.inputs.chart_name }}
+          helm lint ${{ github.event.inputs.chart_name }}
+          ls -la ${{ github.event.inputs.chart_name }}
+
+
+      # - name: Pull and untar chart
+      #   working-directory: charts
+      #   run: |
+      #     echo "Pulling chart ${{ github.event.inputs.chart_name }} version ${{ github.event.inputs.chart_version }}"
           
-          # Check if chart directory already exists
-          if [ -d "${{ github.event.inputs.chart_name }}" ]; then
-            echo "Warning: Chart directory already exists. Contents will be overwritten."
-            # Remove existing directory to ensure clean extraction
-            rm -rf "${{ github.event.inputs.chart_name }}"
-          fi
+      #     # Check if chart directory already exists
+      #     if [ -d "${{ github.event.inputs.chart_name }}" ]; then
+      #       echo "Warning: Chart directory already exists. Contents will be overwritten."
+      #       # Remove existing directory to ensure clean extraction
+      #       rm -rf "${{ github.event.inputs.chart_name }}"
+      #     fi
           
-          # Pull the chart
-          helm pull ${{ github.event.inputs.repo_name }}/${{ github.event.inputs.chart_name }} \
-            --untar \
-            --version ${{ github.event.inputs.chart_version }}
+      #     # Pull the chart
+      #     helm pull ${{ github.event.inputs.repo_name }}/${{ github.event.inputs.chart_name }} \
+      #       --untar \
+      #       --version ${{ github.event.inputs.chart_version }}
           
-          echo "Chart extracted to charts/${{ github.event.inputs.chart_name }}"
+      #     echo "Chart extracted to charts/${{ github.event.inputs.chart_name }}"
 
       - name: Update ct.yaml with new repository
         run: |
