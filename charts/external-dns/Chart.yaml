@@ -30,4 +30,4 @@ name: external-dns
 sources:
 - https://github.com/kubernetes-sigs/external-dns/
 type: application
-version: 1.15.0
+version: "1.15.0-1"
