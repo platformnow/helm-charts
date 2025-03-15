@@ -1,11 +1,11 @@
 apiVersion: v2
 # renovate: datasource=helm depName=argo-cd registryUrl=https://argoproj.github.io/argo-helm
-version: 7.8.10
+version: 7.8.11
 # renovate: image=quay.io/argoproj/argocd
 appVersion: v2.14.5
 dependencies:
   - name: argo-cd
-    version: 7.8.10
+    version: 7.8.11
     repository: https://argoproj.github.io/argo-helm
 description: A Helm chart for Argo CD, a declarative, GitOps continuous delivery tool
   for Kubernetes.
