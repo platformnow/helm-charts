@@ -139,8 +139,8 @@ jobs:
             NEW_BUILD_NUM=$((BUILD_NUM + 1))
             CHART_NEW_VERSION="${BASE_VERSION}-${NEW_BUILD_NUM}"
           else
-            # Start with build number 1
-            CHART_NEW_VERSION="${CHART_VERSION}-1"
+            # Start with build number 0
+            CHART_NEW_VERSION="${CHART_VERSION}-0"
           fi
           
           sed -i "s/^version:.*/version: \"${CHART_NEW_VERSION}\"/" "$CHART/Chart.yaml"
