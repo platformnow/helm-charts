@@ -4,10 +4,10 @@ run-name: "Add ${{ github.event.inputs.chart_name }} chart v${{ github.event.inp
 on:
   workflow_dispatch:
     inputs:
-      repo_name:
+      chart_repo_name:
         description: 'Helm repository name (e.g., external-dns)'
         required: true
-      repo_url:
+      chart_repo_url:
         description: 'Helm repository URL (e.g., https://kubernetes-sigs.github.io/external-dns/)'
         required: true
       chart_name:
@@ -16,6 +16,13 @@ on:
       chart_version:
         description: 'Chart version (e.g., 1.15.0)'
         required: true
+      image_url:
+        description: 'Docker Image Registry Url'
+        required: true
+      image_version:
+        description: 'Docker Image Version'
+        required: true
+        
 
 jobs:
   add-chart:
@@ -36,8 +43,8 @@ jobs:
 
       - name: Add Helm repository
         run: |
-          echo "Adding Helm repository ${{ github.event.inputs.repo_name }} (${{ github.event.inputs.repo_url }})"
-          helm repo add ${{ github.event.inputs.repo_name }} ${{ github.event.inputs.repo_url }}
+          echo "Adding Helm repository ${{ github.event.inputs.chart_repo_name }} (${{ github.event.inputs.chart_repo_url }})"
+          helm repo add ${{ github.event.inputs.chart_repo_name }} ${{ github.event.inputs.chart_repo_url }}
           helm repo update
 
       - name: Create New Chart
@@ -62,10 +69,10 @@ jobs:
           # Add Chart.yaml content
           echo "apiVersion: v2" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "name: ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
-          echo "# renovate: datasource=helm depName=${{ github.event.inputs.chart_name }} registryUrl=${{ github.event.inputs.repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "# renovate: datasource=helm depName=${{ github.event.inputs.chart_name }} registryUrl=${{ github.event.inputs.chart_repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "version: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "# renovate: image=${{ github.event.inputs.image_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
-          echo "appVersion: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "appVersion: ${{ github.event.inputs.image_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "kubeVersion: '>=1.25.0-0'" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "maintainers:" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "  - name: ${{ github.actor }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
@@ -106,10 +113,10 @@ jobs:
       - name: Update ct.yaml with new repository
         run: |
           echo "Checking if repository is already in ct.yaml"
-          if ! grep -q "${{ github.event.inputs.repo_name }}=${{ github.event.inputs.repo_url }}" .github/linters/ct.yaml; then
+          if ! grep -q "${{ github.event.inputs.chart_repo_name }}=${{ github.event.inputs.chart_repo_url }}" .github/linters/ct.yaml; then
             echo "Adding repository to ct.yaml"
             # Use yq to add the new repository to the chart-repos list
-            yq -i '.chart-repos += ["${{ github.event.inputs.repo_name }}=${{ github.event.inputs.repo_url }}"]' .github/linters/ct.yaml
+            yq -i '.chart-repos += ["${{ github.event.inputs.chart_repo_name }}=${{ github.event.inputs.chart_repo_url }}"]' .github/linters/ct.yaml
             echo "Repository added to ct.yaml"
           else
             echo "Repository already exists in ct.yaml"
@@ -151,7 +158,7 @@ jobs:
           echo "## Chart Details" >> $GITHUB_STEP_SUMMARY
           echo "- **Chart Name:** ${{ github.event.inputs.chart_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Version:** ${{ github.event.inputs.chart_version }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Repository:** [${{ github.event.inputs.repo_name }}](${{ github.event.inputs.repo_url }})" >> $GITHUB_STEP_SUMMARY
+          echo "- **Repository:** [${{ github.event.inputs.chart_repo_name }}](${{ github.event.inputs.chart_repo_url }})" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Next Steps" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
