@@ -62,9 +62,9 @@ jobs:
           # Add Chart.yaml content
           echo "apiVersion: v2" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "name: ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
-          echo "# renovate: datasource=helm depName=${{ github.event.inputs.chart_name }} registryUrl=$repo_url" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "# renovate: datasource=helm depName=${{ github.event.inputs.chart_name }} registryUrl=${{ github.event.inputs.repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "version: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
-          echo "# renovate: image=$repo_url" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+          echo "# renovate: image=${{ github.event.inputs.image_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "appVersion: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "kubeVersion: '>=1.25.0-0'" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "maintainers:" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
@@ -74,7 +74,6 @@ jobs:
           echo "  - name: ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "    version: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "    repository: ${{ github.event.inputs.repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml 
-          echo "    condition: ${{ github.event.inputs.chart_condition }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
 
       - name: Test Chart
