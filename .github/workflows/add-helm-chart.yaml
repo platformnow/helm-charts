@@ -80,7 +80,7 @@ jobs:
           echo "dependencies:" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "  - name: ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "    version: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
-          echo "    repository: ${{ github.event.inputs.repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml 
+          echo "    repository: ${{ github.event.inputs.chart_repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml 
           echo "" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
 
       - name: Test Chart
