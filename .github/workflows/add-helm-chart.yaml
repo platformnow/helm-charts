@@ -170,7 +170,7 @@ jobs:
 
       - name: Create branch and commit changes
         run: |
-          BRANCH_NAME="add-chart-${{ github.event.inputs.chart_name }}-${{ github.event.inputs.chart_version }}-$(date +%s)"
+          BRANCH_NAME="add-chart-${{ github.event.inputs.chart_name }}-${{ github.event.inputs.chart_version }}"
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           git checkout -b $BRANCH_NAME
           
@@ -209,6 +209,4 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Or Run Locally" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "```bash" >> $GITHUB_STEP_SUMMARY
           echo "$PR_CMD" >> $GITHUB_STEP_SUMMARY
-          echo "```" >> $GITHUB_STEP_SUMMARY 
