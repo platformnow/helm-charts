@@ -47,8 +47,12 @@ jobs:
           fi
 
           CHART_VERSION=$(grep -e "^version:" "$CHART/Chart.yaml" | cut -d ":" -f 2 | tr -d '[:space:]' | tr -d '"')
-          # For Renovate PRs, append -0 to the existing version
-          CHART_NEW_VERSION="${CHART_VERSION}-0"
+          # If the version already has a build number keep it else add -0
+          if [[ "$CHART_VERSION" == *"-"* ]]; then
+            CHART_NEW_VERSION="${CHART_VERSION}"
+          else
+            CHART_NEW_VERSION="${CHART_VERSION}-0"
+          fi
           
           sed -i "s/^version:.*/version: \"${CHART_NEW_VERSION}\"/" "$CHART/Chart.yaml"
 
