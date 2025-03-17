@@ -111,6 +111,33 @@ The source code of all [PlatformNOW](https://platformnow.io) [Helm](https://helm
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
 We'd love to have you contribute! Please refer to our [contribution guidelines](https://github.com/platformnow/helm-charts/blob/masyer/CONTRIBUTING.md) for details.
 
+### Adding a New Chart
+
+To add a new chart to this repository:
+
+1. Use our GitHub Action workflow to create the chart structure:
+   - Go to Actions → Add Helm Chart
+   - Click "Run workflow"
+   - Fill in the required information:
+     - Chart Repository Name (e.g., external-dns)
+     - Chart Repository URL (e.g., https://kubernetes-sigs.github.io/external-dns/)
+     - Chart Name (e.g., external-dns)
+     - Chart Version (e.g., 1.15.0)
+     - Docker Image Registry URL
+     - Docker Image Version
+
+2. The workflow will:
+   - Create the basic chart structure
+   - Add necessary files (Chart.yaml, values.yaml, README.md)
+   - A Job Summary will then allow you to Create a pull request with your changes
+
+3. Review the generated files and make any necessary adjustments
+
+4. Once the PR is created:
+   - Ensure all tests pass
+   - Request review from maintainers
+   - Address any feedback
+
 ### Development
 
 To develop on this repository:
