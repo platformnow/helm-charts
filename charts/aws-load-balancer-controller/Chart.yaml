@@ -1,7 +1,7 @@
 apiVersion: v2
 name: aws-load-balancer-controller
 # renovate: datasource=helm depName=aws-load-balancer-controller registryUrl=https://aws.github.io/eks-charts
-version: 1.11.0
+version: "1.11.0-0"
 # renovate: image=public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver
 appVersion: v2.11.0
 kubeVersion: '>=1.25.0-0'
