@@ -1,6 +1,6 @@
 apiVersion: v2
 # renovate: datasource=helm depName=cert-manager registryUrl=https://charts.jetstack.io
-version: v1.17.1
+version: v1.17.1-0
 # renovate: image=quay.io/jetstack/cert-manager-controller
 appVersion: v1.17.1
 description: A Helm chart for cert-manager
