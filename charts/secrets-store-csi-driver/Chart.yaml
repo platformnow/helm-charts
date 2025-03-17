@@ -1,7 +1,7 @@
 apiVersion: v2
 name: secrets-store-csi-driver
 # renovate: datasource=helm depName=secrets-store-csi-driver registryUrl=https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
-version: 1.4.7
+version: "1.4.7-0"
 # renovate: image=registry.k8s.io/csi-secrets-store/driver
 appVersion: v1.4.7
 kubeVersion: '>=1.25.0-0'
