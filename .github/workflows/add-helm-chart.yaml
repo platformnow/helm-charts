@@ -21,9 +21,9 @@ on:
         required: false
         default: 'docker.io'
       docker_image_version:
-        description: 'Docker Image Version (default: chart version)'
+        description: 'Docker Image Version (default: latest)'
         required: false
-        default: ${{ github.event.inputs.chart_version }}
+        default: latest
         
 
 jobs:
