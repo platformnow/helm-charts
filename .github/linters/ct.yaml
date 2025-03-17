@@ -13,6 +13,7 @@ chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
   - external-dns=https://kubernetes-sigs.github.io/external-dns/
   - secrets-store-csi-driver=https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+  - cluster-autoscaler=https://kubernetes.github.io/autoscaler
 helm-extra-args: --timeout 600s
 # See https://github.com/helm/chart-testing#configuration
 additional-commands:
