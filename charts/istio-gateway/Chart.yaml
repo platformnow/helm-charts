@@ -1,0 +1,25 @@
+apiVersion: v2
+# renovate: datasource=helm depName=istio-ingress registryUrl=https://istio-release.storage.googleapis.com/charts
+version: "1.25.0-0"
+# renovate: image=istio/gateway
+appVersion: v1.25.0
+dependencies:
+  - name: gateway
+    version: 1.25.0
+    repository: https://istio-release.storage.googleapis.com/charts
+description: Helm chart for deploying Istio gateways
+home: https://istio.io
+icon: https://istio.io/latest/favicons/android-192x192.png
+keywords:
+  - istio
+  - ingress
+  - gateway
+kubeVersion: '>=1.25.0-0'
+maintainers:
+  - name: mohammadsrahman
+    email: mohammadsrahman@me.com
+sources:
+  - https://github.com/istio/istio
+name: istio-gateway
+
+
