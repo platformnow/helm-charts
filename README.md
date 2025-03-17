@@ -1,9 +1,8 @@
 # PlatformNOW Helm Charts
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/platformnow/helm-charts/blob/main/LICENSE)
-[![Release Charts](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions/workflows/release.yaml)
+[![Release Charts](https://github.com/platformnow/helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/platformnow/helm-charts/actions/workflows/release.yaml)
 [![Downloads](https://img.shields.io/github/downloads/platformnow/helm-charts/total.svg)](https://github.com/platformnow/helm-charts/releases)
-[![Build Status](https://github.com/platformnow/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com/platformnow/helm-charts/actions)
 
 ## Introduction
 
@@ -17,6 +16,7 @@ These charts serve as parent charts that include specific dependencies:
 
 | Chart | Description |
 |-------|-------------|
+| argo-cd | Declarative GitOps CD for Kubernetes |
 | aws-ebs-csi-driver | AWS EBS CSI driver |
 | aws-load-balancer-controller | AWS Load Balancer Controller |
 | cert-manager | Certificate management controller |
@@ -38,7 +38,6 @@ These are individual service charts:
 | Chart | Description |
 |-------|-------------|
 | adservice | Advertisement Service |
-| argo-cd | Declarative GitOps CD for Kubernetes |
 | cartservice | Shopping Cart Service |
 | checkoutservice | Checkout Service |
 | common | Common chart templates and helpers |
