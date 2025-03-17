@@ -293,6 +293,27 @@ entries:
     version: 0.1.0
   cluster-autoscaler:
   - apiVersion: v2
+    appVersion: 1.32.0
+    created: "2025-03-17T11:09:52.020744474Z"
+    dependencies:
+    - name: cluster-autoscaler
+      repository: https://kubernetes.github.io/autoscaler
+      version: 9.46.3
+    description: Scales Kubernetes worker nodes within autoscaling groups.
+    digest: c74cc8423a154ee8f77f507eacd94fed012c3d7bdda7341d089298587cd1a948
+    home: https://github.com/kubernetes/autoscaler
+    icon: https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: cluster-autoscaler
+    sources:
+    - https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/cluster-autoscaler-9.46.3-0/cluster-autoscaler-9.46.3-0.tgz
+    version: 9.46.3-0
+  - apiVersion: v2
     appVersion: 1.31.0
     created: "2025-03-17T11:05:43.162923041Z"
     dependencies:
@@ -1433,6 +1454,35 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/external-dns-1.15.2-0/external-dns-1.15.2-0.tgz
     version: 1.15.2-0
+  - apiVersion: v2
+    appVersion: 0.16.1
+    created: "2025-03-17T11:09:52.201289611Z"
+    dependencies:
+    - name: external-dns
+      repository: https://kubernetes-sigs.github.io/external-dns/
+      version: 1.15.2
+    description: ExternalDNS synchronizes exposed Kubernetes Services and Ingresses
+      with DNS providers.
+    digest: 312caff02227fb923d49352a6f7675c79883734160229fcc397b37b1e90820e2
+    home: https://github.com/kubernetes-sigs/external-dns/
+    icon: https://github.com/kubernetes-sigs/external-dns/raw/master/docs/img/external-dns.png
+    keywords:
+    - kubernetes
+    - externaldns
+    - external-dns
+    - dns
+    - service
+    - ingress
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: external-dns
+    sources:
+    - https://github.com/kubernetes-sigs/external-dns/
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/external-dns-1.15.2-0/external-dns-1.15.2-0.tgz
+    version: 1.15.2-0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -2012,4 +2062,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T11:05:43.163032725Z"
+generated: "2025-03-17T11:09:52.20143397Z"
