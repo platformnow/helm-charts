@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cluster-autoscaler
 # renovate: datasource=helm depName=cluster-autoscaler registryUrl=https://kubernetes.github.io/autoscaler
-version: 9.44.0
+version: "9.44.0-0"
 # renovate: image=registry.k8s.io/autoscaling/cluster-autoscaler
 appVersion: 1.31.0
 kubeVersion: '>=1.25.0-0'
