@@ -1,0 +1,20 @@
+apiVersion: v2
+name: cluster-autoscaler
+# renovate: datasource=helm depName=cluster-autoscaler registryUrl=https://kubernetes.github.io/autoscaler
+version: 9.44.0
+# renovate: image=registry.k8s.io/autoscaling/cluster-autoscaler
+appVersion: 1.31.0
+kubeVersion: '>=1.25.0-0'
+maintainers:
+  - name: mohammadsrahman
+    email: mohammadsrahman@users.noreply.github.com
+dependencies:
+  - name: cluster-autoscaler
+    version: 9.44.0
+    repository: https://kubernetes.github.io/autoscaler
+description: Scales Kubernetes worker nodes within autoscaling groups.
+home: https://github.com/kubernetes/autoscaler
+icon: https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png
+sources:
+  - https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
+
