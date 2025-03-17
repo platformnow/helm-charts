@@ -93,7 +93,7 @@ jobs:
           ls -la ${{ github.event.inputs.chart_name }}
 
           # Extract the .tgz file to get the dependency's Chart.yaml
-          tar -xzf ${{ github.event.inputs.chart_name }}/charts/*.tgz
+          tar -xzf ${{ github.event.inputs.chart_name }}/charts/*.tgz -C ${{ github.event.inputs.chart_name }}/charts
           
           # Get the icon from the dependency's Chart.yaml
           DESCRIPTION=$(yq e '.description' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
