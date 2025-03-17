@@ -1906,6 +1906,27 @@ entries:
     version: 0.1.0
   secrets-store-csi-driver:
   - apiVersion: v2
+    appVersion: v1.4.8
+    created: "2025-03-17T10:54:42.504141266Z"
+    dependencies:
+    - name: secrets-store-csi-driver
+      repository: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+      version: 1.4.8
+    description: A Helm chart to install the SecretsStore CSI Driver inside a Kubernetes
+      cluster.
+    digest: 8ab855f5ab37dc976cd3e6eea8de10ba9a6e1b245ecddbd2a622a67576e370b3
+    icon: https://github.com/kubernetes/kubernetes/blob/master/logo/logo.png
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: secrets-store-csi-driver
+    sources:
+    - https://github.com/kubernetes-sigs/secrets-store-csi-driver
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/secrets-store-csi-driver-1.4.8-0/secrets-store-csi-driver-1.4.8-0.tgz
+    version: 1.4.8-0
+  - apiVersion: v2
     appVersion: v1.4.7
     created: "2025-03-17T10:42:47.097334064Z"
     dependencies:
@@ -1969,4 +1990,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T10:42:47.097664503Z"
+generated: "2025-03-17T10:54:42.504254206Z"
