@@ -305,6 +305,32 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/cert-manager-v1.17.1/cert-manager-v1.17.1.tgz
     version: v1.17.1
   - apiVersion: v2
+    appVersion: v1.17.1
+    created: "2025-03-17T20:44:50.70150023Z"
+    dependencies:
+    - name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v1.17.1
+    description: A Helm chart for cert-manager
+    digest: d348ab4f48d852aec0d277cb09200d37cd8eb464a93b412f36e77bcc30e81842
+    home: https://cert-manager.io
+    icon: https://raw.githubusercontent.com/cert-manager/community/4d35a69437d21b76322157e6284be4cd64e6d2b7/logo/logo-small.png
+    keywords:
+    - cert-manager
+    - kube-lego
+    - letsencrypt
+    - tls
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: cert-manager
+    sources:
+    - https://github.com/cert-manager/cert-manager
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/cert-manager-v1.17.1-0/cert-manager-v1.17.1-0.tgz
+    version: v1.17.1-0
+  - apiVersion: v2
     appVersion: v1.17.0
     created: "2025-03-11T21:22:24.243205521Z"
     dependencies:
@@ -1655,6 +1681,29 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/external-secrets-v0.14.4/external-secrets-v0.14.4.tgz
     version: v0.14.4
+  - apiVersion: v2
+    appVersion: v0.14.4
+    created: "2025-03-17T20:44:50.826386746Z"
+    dependencies:
+    - name: external-secrets
+      repository: https://charts.external-secrets.io/
+      version: 0.14.4
+    description: External secret management for Kubernetes
+    digest: 9cdc409dc7112aa776e9b0f4ec4edac57cc55a0fd6ed0f283132b02b00fc9aa0
+    home: https://github.com/external-secrets/external-secrets
+    icon: https://raw.githubusercontent.com/external-secrets/external-secrets/main/assets/eso-logo-large.png
+    keywords:
+    - kubernetes-external-secrets
+    - secrets
+    kubeVersion: '>= 1.19.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: external-secrets
+    type: application
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/external-secrets-v0.14.4-0/external-secrets-v0.14.4-0.tgz
+    version: v0.14.4-0
   frontendservice:
   - annotations:
       category: Application
@@ -2144,4 +2193,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T20:33:16.627009503Z"
+generated: "2025-03-17T20:44:50.826536336Z"
