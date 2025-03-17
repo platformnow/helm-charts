@@ -133,8 +133,6 @@ jobs:
             done
           fi
 
-          echo "" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
-
           # Clean up extracted files
           rm -rf ${{ github.event.inputs.chart_name }}/charts
           rm -rf ${{ github.event.inputs.chart_name }}/Chart.lock
