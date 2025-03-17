@@ -1382,6 +1382,35 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/emailservice-0.1.0/emailservice-0.1.0.tgz
     version: 0.1.0
   external-dns:
+  - apiVersion: v2
+    appVersion: 0.15.1
+    created: "2025-03-17T10:38:35.013329703Z"
+    dependencies:
+    - name: external-dns
+      repository: https://kubernetes-sigs.github.io/external-dns/
+      version: 1.15.2
+    description: ExternalDNS synchronizes exposed Kubernetes Services and Ingresses
+      with DNS providers.
+    digest: 1288548952acdba5d5a89206e2cfe2643a1417837e7187c480d165148c45a566
+    home: https://github.com/kubernetes-sigs/external-dns/
+    icon: https://github.com/kubernetes-sigs/external-dns/raw/master/docs/img/external-dns.png
+    keywords:
+    - kubernetes
+    - externaldns
+    - external-dns
+    - dns
+    - service
+    - ingress
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: external-dns
+    sources:
+    - https://github.com/kubernetes-sigs/external-dns/
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/external-dns-1.15.2-0/external-dns-1.15.2-0.tgz
+    version: 1.15.2-0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -1918,4 +1947,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T10:06:43.76591922Z"
+generated: "2025-03-17T10:38:35.013433877Z"
