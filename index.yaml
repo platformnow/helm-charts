@@ -443,6 +443,27 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/cluster-autoscaler-9.46.3-0/cluster-autoscaler-9.46.3-0.tgz
     version: 9.46.3-0
   - apiVersion: v2
+    appVersion: 1.32.1
+    created: "2025-03-17T21:33:03.56095233Z"
+    dependencies:
+    - name: cluster-autoscaler
+      repository: https://kubernetes.github.io/autoscaler
+      version: 9.46.3
+    description: Scales Kubernetes worker nodes within autoscaling groups.
+    digest: 94cb6f2a42d24402a10f321ac5b717a8527e205c947ca3b97b17b0ce7be93f7d
+    home: https://github.com/kubernetes/autoscaler
+    icon: https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: cluster-autoscaler
+    sources:
+    - https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/cluster-autoscaler-9.46.3-0/cluster-autoscaler-9.46.3-0.tgz
+    version: 9.46.3-0
+  - apiVersion: v2
     appVersion: 1.31.0
     created: "2025-03-17T11:05:43.162923041Z"
     dependencies:
@@ -1768,6 +1789,80 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/frontendservice-0.1.0/frontendservice-0.1.0.tgz
     version: 0.1.0
+  istio-base:
+  - apiVersion: v2
+    appVersion: 1.25.0
+    created: "2025-03-17T21:33:03.686037424Z"
+    dependencies:
+    - name: base
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.25.0
+    description: Helm chart for deploying Istio cluster resources and CRDs
+    digest: 3b3a19c5c3f89f2b4d1c4fcec5e89ce04b5c8b23abcef1e52ce08ba80acefc69
+    home: https://istio.io
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: istio-base
+    sources:
+    - https://github.com/istio/istio
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/istio-base-1.25.0-0/istio-base-1.25.0-0.tgz
+    version: 1.25.0-0
+  istio-gateway:
+  - apiVersion: v2
+    appVersion: v1.25.0
+    created: "2025-03-17T21:33:03.771539874Z"
+    dependencies:
+    - name: gateway
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.25.0
+    description: Helm chart for deploying Istio gateways
+    digest: 72faebe5ef3adeb5ef12644b2ece3502c70832dfcfd9647bbf5b5080d15f1936
+    home: https://istio.io
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    - ingress
+    - gateway
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: istio-gateway
+    sources:
+    - https://github.com/istio/istio
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/istio-gateway-1.25.0-0/istio-gateway-1.25.0-0.tgz
+    version: 1.25.0-0
+  istiod:
+  - apiVersion: v2
+    appVersion: v1.25.0
+    created: "2025-03-17T21:33:03.876725989Z"
+    dependencies:
+    - name: istiod
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.25.0
+    description: Helm chart for istio control plane
+    digest: 3a3902505c0058f58ffaf9538465ec534485319d2574a256bb182540198ca066
+    home: https://istio.io
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: istiod
+    sources:
+    - https://github.com/istio/istio
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/istiod-1.25.0-0/istiod-1.25.0-0.tgz
+    version: 1.25.0-0
   landscape-backend:
   - annotations:
       category: Application
@@ -2214,4 +2309,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T20:50:17.189105075Z"
+generated: "2025-03-17T21:33:03.876864548Z"
