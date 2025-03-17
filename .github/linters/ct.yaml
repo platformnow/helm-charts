@@ -12,6 +12,7 @@ chart-repos:
   - grafana=https://grafana.github.io/helm-charts
   - bitnami=https://charts.bitnami.com/bitnami
   - external-dns=https://kubernetes-sigs.github.io/external-dns/
+  - secrets-store-csi-driver=https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
 helm-extra-args: --timeout 600s
 # See https://github.com/helm/chart-testing#configuration
 additional-commands:
