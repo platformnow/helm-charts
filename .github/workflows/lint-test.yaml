@@ -35,7 +35,12 @@ jobs:
       #     helm env
       #     helm plugin install https://github.com/quintush/helm-unittest.git --version 0.2.8
 
+      - name: Run chart-testing (lint) renovate bot
+        if: github.actor == 'renovate[bot]'
+        run: ct lint --config .github/linters/ct.yaml --check-version-increment=false
+
       - name: Run chart-testing (lint)
+        if: github.actor != 'renovate[bot]'
         run: ct lint --config .github/linters/ct.yaml
 
 #      - name: Create kind cluster
