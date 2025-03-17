@@ -16,6 +16,7 @@ chart-repos:
   - cluster-autoscaler=https://kubernetes.github.io/autoscaler
   - aws-ebs-csi-driver=https://kubernetes-sigs.github.io/aws-ebs-csi-driver
   - eks=https://aws.github.io/eks-charts
+  - istio=https://istio-release.storage.googleapis.com/charts
 helm-extra-args: --timeout 600s
 # See https://github.com/helm/chart-testing#configuration
 additional-commands:
