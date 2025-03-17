@@ -152,6 +152,31 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/argo-cd-7.8.5/argo-cd-7.8.5.tgz
     version: 7.8.5
+  aws-ebs-csi-driver:
+  - apiVersion: v2
+    appVersion: 1.41.0
+    created: "2025-03-17T11:43:31.743215389Z"
+    dependencies:
+    - name: aws-ebs-csi-driver
+      repository: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+      version: 2.41.0
+    description: A Helm chart for AWS EBS CSI Driver
+    digest: 50ec52d1fbd1c83582bac758a4e0c6b14d4c86ed60d456a752455d75278f6d60
+    home: https://github.com/kubernetes-sigs/aws-ebs-csi-driver
+    keywords:
+    - aws
+    - ebs
+    - csi
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: aws-ebs-csi-driver
+    sources:
+    - https://github.com/kubernetes-sigs/aws-ebs-csi-driver
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/aws-ebs-csi-driver-2.41.0-0/aws-ebs-csi-driver-2.41.0-0.tgz
+    version: 2.41.0-0
   cartservice:
   - annotations:
       category: Application
@@ -2062,4 +2087,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T11:09:52.20143397Z"
+generated: "2025-03-17T11:43:31.743350972Z"
