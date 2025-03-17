@@ -1,5 +1,5 @@
 apiVersion: v2
-# renovate: datasource=helm depName=istio-base registryUrl=https://istio-release.storage.googleapis.com/charts
+# renovate: datasource=helm depName=base registryUrl=https://istio-release.storage.googleapis.com/charts
 version: "1.25.0-0"
 # renovate: image=registry.hub.docker.com/istio/proxyv2
 appVersion: 1.25.0
