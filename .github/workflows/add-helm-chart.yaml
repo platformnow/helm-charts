@@ -197,9 +197,6 @@ jobs:
           # Create PR URL
           PR_URL="${{ github.server_url }}/${{ github.repository }}/compare/main...${{ env.BRANCH_NAME }}?expand=1"
           
-          # Create command for local PR creation
-          PR_CMD="gh pr create --base main --head ${{ env.BRANCH_NAME }} --title \"feat(charts): add ${{ github.event.inputs.chart_name }} chart version ${{ github.event.inputs.chart_version }}\" --body \"This PR adds the ${{ github.event.inputs.chart_name }} Helm chart version ${{ github.event.inputs.chart_version }}.\n\nChart repository: ${{ github.event.inputs.repo_name }} (${{ github.event.inputs.repo_url }})\n\nThis PR was created automatically by the Add Helm Chart workflow.\""
-          
           # Create job summary
           echo "# 🚀 Added ${{ github.event.inputs.chart_name }} Chart v${{ github.event.inputs.chart_version }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -207,6 +204,7 @@ jobs:
           echo "- **Chart Name:** ${{ github.event.inputs.chart_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Version:** ${{ github.event.inputs.chart_version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Repository:** [${{ github.event.inputs.chart_repo_name }}](${{ github.event.inputs.chart_repo_url }})" >> $GITHUB_STEP_SUMMARY
+          echo "- **Image:** ${{ github.event.inputs.registry_url }}/$IMAGE_NAME:$IMAGE_TAG" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Next Steps" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -214,6 +212,3 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "[Create PR]($PR_URL)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Or Run Locally" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "$PR_CMD" >> $GITHUB_STEP_SUMMARY
