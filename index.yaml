@@ -422,6 +422,27 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/cluster-autoscaler-9.46.3-0/cluster-autoscaler-9.46.3-0.tgz
     version: 9.46.3-0
   - apiVersion: v2
+    appVersion: 1.32.1
+    created: "2025-03-17T20:50:17.188947231Z"
+    dependencies:
+    - name: cluster-autoscaler
+      repository: https://kubernetes.github.io/autoscaler
+      version: 9.46.3
+    description: Scales Kubernetes worker nodes within autoscaling groups.
+    digest: b6ed75294e8d51070333dde9e7b2c521bda0efdc14b497e5536b90e6f92f6656
+    home: https://github.com/kubernetes/autoscaler
+    icon: https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: cluster-autoscaler
+    sources:
+    - https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/cluster-autoscaler-9.46.3-0/cluster-autoscaler-9.46.3-0.tgz
+    version: 9.46.3-0
+  - apiVersion: v2
     appVersion: 1.31.0
     created: "2025-03-17T11:05:43.162923041Z"
     dependencies:
@@ -2193,4 +2214,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T20:44:50.826536336Z"
+generated: "2025-03-17T20:50:17.189105075Z"
