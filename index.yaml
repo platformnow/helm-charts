@@ -206,6 +206,34 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/aws-ebs-csi-driver-2.41.0-0/aws-ebs-csi-driver-2.41.0-0.tgz
     version: 2.41.0-0
+  aws-load-balancer-controller:
+  - apiVersion: v2
+    appVersion: v2.11.0
+    created: "2025-03-17T20:33:16.626886102Z"
+    dependencies:
+    - name: aws-load-balancer-controller
+      repository: https://aws.github.io/eks-charts
+      version: 1.11.0
+    description: AWS Load Balancer Controller Helm chart for Kubernetes
+    digest: d99f802985b12c51f8861d0fb96820c9554823dce9bd2933e1d4c5b8a9668339
+    home: https://github.com/aws/eks-charts
+    icon: https://raw.githubusercontent.com/aws/eks-charts/master/docs/logo/aws.png
+    keywords:
+    - eks
+    - alb
+    - load balancer
+    - ingress
+    - nlb
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: aws-load-balancer-controller
+    sources:
+    - https://github.com/aws/eks-charts
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/aws-load-balancer-controller-1.11.0-0/aws-load-balancer-controller-1.11.0-0.tgz
+    version: 1.11.0-0
   cartservice:
   - annotations:
       category: Application
@@ -2116,4 +2144,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T12:41:53.50711579Z"
+generated: "2025-03-17T20:33:16.627009503Z"
