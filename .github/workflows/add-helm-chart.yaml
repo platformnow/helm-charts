@@ -93,43 +93,43 @@ jobs:
           ls -la ${{ github.event.inputs.chart_name }}
 
           # Extract the .tgz file to get the dependency's Chart.yaml
-          tar -xzf charts/*.tgz
+          tar -xzf ${{ github.event.inputs.chart_name }}/charts/*.tgz
           
           # Get the icon from the dependency's Chart.yaml
-          DESCRIPTION=$(yq e '.description' charts/Chart.yaml)
-          CHART_HOME=$(yq e '.home' charts/Chart.yaml)
-          ICON_URL=$(yq e '.icon' charts/Chart.yaml)
-          SOURCES=$(yq e '.sources' charts/Chart.yaml)
-          KEYWORDS=$(yq e '.keywords' charts/Chart.yaml)
+          DESCRIPTION=$(yq e '.description' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
+          CHART_HOME=$(yq e '.home' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
+          ICON_URL=$(yq e '.icon' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
+          SOURCES=$(yq e '.sources' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
+          KEYWORDS=$(yq e '.keywords' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
 
           # Add description to parent Chart.yaml if found
           if [ ! -z "$DESCRIPTION" ]; then
-            echo "description: $DESCRIPTION" >> ./Chart.yaml
+            echo "description: $DESCRIPTION" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           fi
 
           # Add home to parent Chart.yaml if found
           if [ ! -z "$CHART_HOME" ]; then
-            echo "home: $CHART_HOME" >> ./Chart.yaml
+            echo "home: $CHART_HOME" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           fi
           
           # Add icon to parent Chart.yaml if found
           if [ ! -z "$ICON_URL" ]; then
-            echo "icon: $ICON_URL" >> ./Chart.yaml
+            echo "icon: $ICON_URL" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           fi
 
           # Add sources to parent Chart.yaml if found
           if [ ! -z "$SOURCES" ]; then
-            echo "sources: $SOURCES" >> ./Chart.yaml
+            echo "sources: $SOURCES" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           fi
 
           # Add keywords to parent Chart.yaml if found
           if [ ! -z "$KEYWORDS" ]; then
-            echo "keywords: $KEYWORDS" >> ./Chart.yaml
+            echo "keywords: $KEYWORDS" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           fi
 
           # Clean up extracted files
-          rm -rf charts
-          rm -rf Chart.lock
+          rm -rf ${{ github.event.inputs.chart_name }}/charts
+          rm -rf ${{ github.event.inputs.chart_name }}/Chart.lock
 
 
       # - name: Pull and untar chart
