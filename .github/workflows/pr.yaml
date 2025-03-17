@@ -63,6 +63,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
         run: |
+          # Check if the version was actually changed
+          if git diff --quiet "$CHART/Chart.yaml"; then
+            echo "No changes detected in Chart.yaml, skipping commit"
+            exit 0
+          fi
+
           curl https://api.github.com/graphql -f \
                -sSf -H "Authorization: Bearer $GITHUB_TOKEN" \
                --data @- <<GRAPHQL | jq
@@ -156,6 +162,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
         run: |
+          # Check if the version was actually changed
+          if git diff --quiet "$CHART/Chart.yaml"; then
+            echo "No changes detected in Chart.yaml, skipping commit"
+            exit 0
+          fi
+
           curl https://api.github.com/graphql -f \
                -sSf -H "Authorization: Bearer $GITHUB_TOKEN" \
                --data @- <<GRAPHQL | jq
