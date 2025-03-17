@@ -93,14 +93,14 @@ jobs:
           ls -la ${{ github.event.inputs.chart_name }}
 
           # Extract the .tgz file to get the dependency's Chart.yaml
-          tar -xzf ${{ github.event.inputs.chart_name }}/charts/*.tgz
+          tar -xzf charts/*.tgz
           
           # Get the icon from the dependency's Chart.yaml
-          DESCRIPTION=$(yq e '.description' ${{ github.event.inputs.chart_name }}/charts/Chart.yaml)
-          CHART_HOME=$(yq e '.home' ${{ github.event.inputs.chart_name }}/charts/Chart.yaml)
-          ICON_URL=$(yq e '.icon' ${{ github.event.inputs.chart_name }}/charts/Chart.yaml)
-          SOURCES=$(yq e '.sources' ${{ github.event.inputs.chart_name }}/charts/Chart.yaml)
-          KEYWORDS=$(yq e '.keywords' ${{ github.event.inputs.chart_name }}/charts/Chart.yaml)
+          DESCRIPTION=$(yq e '.description' charts/Chart.yaml)
+          CHART_HOME=$(yq e '.home' charts/Chart.yaml)
+          ICON_URL=$(yq e '.icon' charts/Chart.yaml)
+          SOURCES=$(yq e '.sources' charts/Chart.yaml)
+          KEYWORDS=$(yq e '.keywords' charts/Chart.yaml)
 
           # Add description to parent Chart.yaml if found
           if [ ! -z "$DESCRIPTION" ]; then
@@ -128,8 +128,8 @@ jobs:
           fi
 
           # Clean up extracted files
-          rm -rf ${{ github.event.inputs.chart_name }}/charts
-          rm -rf ${{ github.event.inputs.chart_name }}/Chart.lock
+          rm -rf charts
+          rm -rf Chart.lock
 
 
       # - name: Pull and untar chart
