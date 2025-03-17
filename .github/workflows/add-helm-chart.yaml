@@ -83,7 +83,6 @@ jobs:
           echo "  - name: ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "    version: ${{ github.event.inputs.chart_version }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
           echo "    repository: ${{ github.event.inputs.chart_repo_url }}" >> ${{ github.event.inputs.chart_name }}/Chart.yaml 
-          echo "" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
 
       - name: Test Chart
         working-directory: charts
@@ -99,8 +98,8 @@ jobs:
           DESCRIPTION=$(yq e '.description' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
           CHART_HOME=$(yq e '.home' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
           ICON_URL=$(yq e '.icon' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
-          SOURCES=$(yq e '.sources' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
-          KEYWORDS=$(yq e '.keywords' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
+          SOURCES=$(yq e '.sources[]' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
+          KEYWORDS=$(yq e '.keywords[]' ${{ github.event.inputs.chart_name }}/charts/${{ github.event.inputs.chart_name }}/Chart.yaml)
 
           # Add description to parent Chart.yaml if found
           if [ ! -z "$DESCRIPTION" ]; then
@@ -119,13 +118,21 @@ jobs:
 
           # Add sources to parent Chart.yaml if found
           if [ ! -z "$SOURCES" ]; then
-            echo "sources: $SOURCES" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+            echo "sources:" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+            echo "$SOURCES" | while read -r source; do
+              echo "  - $source" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+            done
           fi
 
           # Add keywords to parent Chart.yaml if found
           if [ ! -z "$KEYWORDS" ]; then
-            echo "keywords: $KEYWORDS" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+            echo "keywords:" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+            echo "$KEYWORDS" | while read -r keyword; do
+              echo "  - $keyword" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
+            done
           fi
+
+          echo "" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
 
           # Clean up extracted files
           rm -rf ${{ github.event.inputs.chart_name }}/charts
