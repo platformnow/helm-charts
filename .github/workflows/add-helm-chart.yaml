@@ -67,6 +67,7 @@ jobs:
           echo "# ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/README.md
           echo "" >> ${{ github.event.inputs.chart_name }}/README.md
           echo " Parent chart for ${{ github.event.inputs.chart_name }}" >> ${{ github.event.inputs.chart_name }}/README.md
+          echo "" >> ${{ github.event.inputs.chart_name }}/README.md
 
           # Add Chart.yaml content
           echo "apiVersion: v2" >> ${{ github.event.inputs.chart_name }}/Chart.yaml
