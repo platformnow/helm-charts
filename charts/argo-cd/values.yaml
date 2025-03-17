@@ -11,3 +11,47 @@ argo-cd:
       application.namespaces: "*"
   applicationSet:
     allowAnyNamespace: true
+
+# -- Secret Provider Class
+secretProviderClass:
+  # -- Enable the Secret Provider Class
+  # @default -- false
+  enabled: false
+
+  # -- The name of the Secret Provider Class
+  # @default -- secret-provider-class
+  name: secret-provider-class
+
+  # -- The namespace of the Secret Provider Class
+  # @default -- argo-cd
+  namespace: argo-cd
+
+  # -- Annotations for the Secret Provider Class
+  # @default -- {}
+  annotations: {}
+
+  # -- Labels for the Secret Provider Class
+  # @default -- {}
+  labels: {}
+
+  # -- The provider of the Secret Provider Class
+  # @default -- aws
+  provider: aws
+  
+  # -- Parameters for the Secret Provider Class
+  # @default -- {}  
+  parameters: {}
+  # objects: |
+  #   - objectName: "/my-app/database/username"
+  #     objectType: "ssmparameter"
+  #   - objectName: "/my-app/database/password"
+  #     objectType: "ssmparameter"
+
+  # -- Secret Objects for the Secret Provider Class
+  # @default -- []  
+  secretObjects: []
+  #   - secretName: "argo-cd-secret"
+  #     type: "Opaque"
+  #     data:
+  #       username: "argo-cd-username"
+  #       password: "argo-cd-password"
