@@ -82,6 +82,24 @@ For example:
 helm install my-argo-cd platformnow/argo-cd
 ```
 
+### Using OCI Registry
+
+Our charts are also available as OCI artifacts. You can pull them directly from our GitHub Container Registry:
+
+```bash
+# Pull a specific chart version
+helm pull oci://ghcr.io/platformnow/charts/<chart-name> --version <version>
+
+# Example
+helm pull oci://ghcr.io/platformnow/charts/aws-ebs-csi-driver --version 2.41.0-0
+```
+
+You can also install directly from the OCI registry:
+
+```bash
+helm install my-release oci://ghcr.io/platformnow/charts/<chart-name> --version <version>
+```
+
 ### Configuration
 
 Each chart has its own values.yaml file with detailed configuration options. Please refer to the individual chart's README for specific configuration options.
