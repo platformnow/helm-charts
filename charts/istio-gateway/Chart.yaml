@@ -20,6 +20,6 @@ maintainers:
     email: mohammadsrahman@me.com
 sources:
   - https://github.com/istio/istio
-name: gateway
+name: istio-gateway
 
 
