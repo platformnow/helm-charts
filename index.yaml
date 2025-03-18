@@ -534,6 +534,27 @@ entries:
     - https://github.com/platformnow/helm-charts/releases/download/cluster-autoscaler-9.46.3-0/cluster-autoscaler-9.46.3-0.tgz
     version: 9.46.3-0
   - apiVersion: v2
+    appVersion: 1.32.1
+    created: "2025-03-18T13:49:43.68617948Z"
+    dependencies:
+    - name: cluster-autoscaler
+      repository: https://kubernetes.github.io/autoscaler
+      version: 9.46.3
+    description: Scales Kubernetes worker nodes within autoscaling groups.
+    digest: 685f5fafdab3f3d2ea02cbac1e1847012e5b57be4ce3744278ffc3e291e7fe15
+    home: https://github.com/kubernetes/autoscaler
+    icon: https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@users.noreply.github.com
+      name: mohammadsrahman
+    name: cluster-autoscaler
+    sources:
+    - https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/cluster-autoscaler-9.46.3-0/cluster-autoscaler-9.46.3-0.tgz
+    version: 9.46.3-0
+  - apiVersion: v2
     appVersion: 1.31.0
     created: "2025-03-17T11:05:43.162923041Z"
     dependencies:
@@ -2051,6 +2072,29 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/istio-base-1.25.0-0/istio-base-1.25.0-0.tgz
     version: 1.25.0-0
+  - apiVersion: v2
+    appVersion: 1.25.0
+    created: "2025-03-18T13:49:43.841861882Z"
+    dependencies:
+    - name: base
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.25.0
+    description: Helm chart for deploying Istio cluster resources and CRDs
+    digest: e2f59f83ca9f3beacebb9ae3a6dd9e060716655c70bf944622d19afa1024ff96
+    home: https://istio.io
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: istio-base
+    sources:
+    - https://github.com/istio/istio
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/istio-base-1.25.0-0/istio-base-1.25.0-0.tgz
+    version: 1.25.0-0
   istio-gateway:
   - apiVersion: v2
     appVersion: v1.25.0
@@ -2161,6 +2205,31 @@ entries:
       version: 1.25.0
     description: Helm chart for deploying Istio gateways
     digest: 27642b44d98d1fb53bffb1c1478c352340d016653173be42af29ceb6bdc6d0f9
+    home: https://istio.io
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    - ingress
+    - gateway
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: istio-gateway
+    sources:
+    - https://github.com/istio/istio
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/istio-gateway-1.25.0-0/istio-gateway-1.25.0-0.tgz
+    version: 1.25.0-0
+  - apiVersion: v2
+    appVersion: v1.25.0
+    created: "2025-03-18T13:49:43.967682732Z"
+    dependencies:
+    - name: gateway
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.25.0
+    description: Helm chart for deploying Istio gateways
+    digest: c6921bfe7fde371c950692aa144dfb5965bee28b875ec21f59e67f437110dfdd
     home: https://istio.io
     icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
@@ -2348,6 +2417,29 @@ entries:
       version: 1.25.0
     description: Helm chart for istio control plane
     digest: 4430c96e20b5413eef131dcfeebc8c76c5242bfe0d2b3ebede4fb77a2da71796
+    home: https://istio.io
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - email: mohammadsrahman@me.com
+      name: mohammadsrahman
+    name: istiod
+    sources:
+    - https://github.com/istio/istio
+    urls:
+    - https://github.com/platformnow/helm-charts/releases/download/istiod-1.25.0-0/istiod-1.25.0-0.tgz
+    version: 1.25.0-0
+  - apiVersion: v2
+    appVersion: v1.25.0
+    created: "2025-03-18T13:49:44.105352452Z"
+    dependencies:
+    - name: istiod
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.25.0
+    description: Helm chart for istio control plane
+    digest: 4ba6fade472f6e09fe7a72f98ccb2f71ad6803e489e7b7ae90ea7f4ccf43e437
     home: https://istio.io
     icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
@@ -2808,4 +2900,4 @@ entries:
     urls:
     - https://github.com/platformnow/helm-charts/releases/download/shippingservice-0.1.0/shippingservice-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-18T13:44:11.612519613Z"
+generated: "2025-03-18T13:49:44.105508223Z"
