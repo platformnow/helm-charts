@@ -6,7 +6,7 @@ appVersion: v0.14.4
 dependencies:
 - name: external-secrets
   repository: https://charts.external-secrets.io/
-  version: 0.14.4
+  version: 2.10.0
 description: External secret management for Kubernetes
 home: https://github.com/external-secrets/external-secrets
 icon: https://raw.githubusercontent.com/external-secrets/external-secrets/main/assets/eso-logo-large.png
