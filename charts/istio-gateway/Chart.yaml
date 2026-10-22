@@ -1,11 +1,11 @@
 apiVersion: v2
 # renovate: datasource=helm depName=gateway registryUrl=https://istio-release.storage.googleapis.com/charts
-version: "1.25.0-0"
+version: "1.25.5-0"
 # renovate: image=registry.hub.docker.com/istio/proxyv2
 appVersion: v1.25.0
 dependencies:
   - name: gateway
-    version: 1.25.0
+    version: 1.25.5
     repository: https://istio-release.storage.googleapis.com/charts
 description: Helm chart for deploying Istio gateways
 home: https://istio.io
